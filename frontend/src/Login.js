@@ -18,7 +18,7 @@ class Login extends Component {
   // will recieve code and log appropriate response
   loginButton(event) {
     var self = this;
-    var apiBaseUrl = "https://tinyurl.com/HPCompost";
+    var apiBaseUrl = "https://hpcompost.com/login";
 
     // test for empty fields
     if (this.state.email == "" || this.state.password == "") {
