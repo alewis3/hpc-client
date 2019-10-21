@@ -21,7 +21,7 @@ class Login extends Component {
     var apiBaseUrl = "https://hpcompost.com/login";
 
     // test for empty fields
-    if (this.state.email == "" || this.state.password == "") {
+    if (this.state.email === "" || this.state.password === "") {
       alert("Fill in all fields!")
     }
 
@@ -63,15 +63,14 @@ class Login extends Component {
               title="User Login"
             />
             <TextField
-              hintText="Enter your email"
-              floatingLabelText="Email"
+              hintText="Email"
               onChange = {(event, newValue) => this.setState({email: newValue})}
             />
             <br/>
+            <br/>
             <TextField
               type="password"
-              hintText="Enter your password"
-              floatingLabelText="Password"
+              hintText="Password"
               onChange = {(event, newValue) => this.setState({password: newValue})}
             />
             <br/>
