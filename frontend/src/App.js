@@ -18,6 +18,10 @@ class App extends Component {
       <div className="App">
         <Router>
           <Switch>
+            <Route path="/about">
+              <h3>Host, Post, and Compost</h3>
+              <p>Welcome to HPC</p>
+            </Route>
             <Route path="/login">
               <Login />
               <ButtonSpaceForLogin />
@@ -43,6 +47,7 @@ function ButtonSpaceForLogin() {
           <RaisedButton label="Register" primary={true} />
         </MuiThemeProvider>
       </Link>
+      <br />
     </div>
   );
 }
@@ -53,9 +58,13 @@ function ButtonSpaceForRegister() {
       <p>Already have an account? Login here.</p>
       <Link to="/login">
         <MuiThemeProvider>
-          <RaisedButton label="Register" primary={true} />
+          <RaisedButton label="Login" primary={true} />
         </MuiThemeProvider>
       </Link>
+      <br />
+      <br />
+      <br />
+      <br />
     </div>
   );
 }
