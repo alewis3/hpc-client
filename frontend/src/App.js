@@ -1,31 +1,63 @@
 import React, { Component } from 'react';
 import './App.css';
-import LoginScreen from './LoginScreen';
-
+import Login from './components/Login';
+import Register from './components/Register';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+import Map from './components/Map';
+import { MuiThemeProvider } from 'material-ui/styles';
+import RaisedButton from 'material-ui/RaisedButton';
 
 class App extends Component {
-  constructor(props){
-    super(props);
-    this.state={
-      loginPage:[],
-      uploadScreen:[]
-    }
-  }
-  componentWillMount(){
-    var loginPage =[];
-    loginPage.push(<LoginScreen appContext={this} key={"login-screen"}/>);
-    this.setState({
-                  loginPage:loginPage
-                    })
-  }
   render() {
     return (
       <div className="App">
-        {this.state.loginPage}
-        {this.state.uploadScreen}
+        <Router>
+          <Switch>
+            <Route path="/login">
+              <Login />
+              <ButtonSpaceForLogin />
+            </Route>
+            <Route path="/register">
+              <Register />
+              <ButtonSpaceForRegister />
+            </Route>
+            <Route path="/map" component={ Map } />
+          </Switch>
+        </Router>
       </div>
-    );
+    )
   }
+}
+
+function ButtonSpaceForLogin() {
+  return(
+    <div>
+      <p>Don't have an account? Register here.</p>
+      <Link to="/register">
+        <MuiThemeProvider>
+          <RaisedButton label="Register" primary={true} />
+        </MuiThemeProvider>
+      </Link>
+    </div>
+  );
+}
+
+function ButtonSpaceForRegister() {
+  return(
+    <div>
+      <p>Already have an account? Login here.</p>
+      <Link to="/login">
+        <MuiThemeProvider>
+          <RaisedButton label="Register" primary={true} />
+        </MuiThemeProvider>
+      </Link>
+    </div>
+  );
 }
 
 export default App;
