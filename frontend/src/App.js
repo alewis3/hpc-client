@@ -21,9 +21,9 @@ class App extends Component {
             <Route path="/index">
               <h3>Host, Post, and Compost</h3>
               <p>Welcome to HPC</p>
-	      <ButtonSpaceForLogin />
-	      <br />
-	      <ButtonSpaceForRegister />
+              <ButtonSpaceForLogin />
+              <br />
+              <ButtonSpaceForRegister />
             </Route>
             <Route path="/login">
               <Login />

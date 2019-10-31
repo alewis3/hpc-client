@@ -39,15 +39,6 @@ class Login extends Component {
 
       if (response.data.code == 200) {
         console.log("Login successful.");
-      } else if (response.data.code == 204) {
-        console.log("Email password do not match");
-        alert("Email password do not match")
-      } else if (response.data.code == 401) {
-        console.log("incorrect pw");
-        alert("incorrect pw");
-      } else {
-        console.log("Email does not exist");
-        alert("Email does not exist")
       }
     }).catch(function (error) {
       console.log(error);

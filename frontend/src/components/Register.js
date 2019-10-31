@@ -124,13 +124,7 @@ class Register extends Component {
       console.log(response);
        if (response.data.code == 200) {
          console.log("registration successful");
-         var loginScreen = [];
-         loginScreen.push(<Login parentContext={this} />);
-         var loginMessage = "Not registered yet? Go to registration";
-         self.props.parentContext.setState({loginScreen: loginScreen,
-                                            loginMessage: loginMessage,
-                                            buttonLabel: "Register",
-                                            islogin: true });
+         alert("Registration successful!")
        } else if (response.data.code == 401) {
          console.log("incorrect pw");
          alert("incorrect pw");
