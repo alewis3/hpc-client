@@ -19,7 +19,7 @@ class App extends Component {
         <Router>
           <Switch>
             <Route path="/index">
-              <h3>Host, Post, and Compost</h3>
+              <h1>Host, Post, and Compost</h1>
               <p>Welcome to HPC</p>
               <ButtonSpaceForLogin />
               <br />

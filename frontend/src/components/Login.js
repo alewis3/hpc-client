@@ -35,10 +35,8 @@ class Login extends Component {
     }
 
     axios.post(apiBaseUrl + '/login', payload).then(function(response) {
-      console.log(response);
-
       if (response.status == 200 && response.data.accountType == "Contributor") {
-	window.location.href = "https://hpcompost.com/map";
+        window.location.href = "https://hpcompost.com/map";
       }
     }).catch(function (error) {
       console.log(error);
