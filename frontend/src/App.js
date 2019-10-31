@@ -18,9 +18,12 @@ class App extends Component {
       <div className="App">
         <Router>
           <Switch>
-            <Route path="/about">
+            <Route path="/index">
               <h3>Host, Post, and Compost</h3>
               <p>Welcome to HPC</p>
+	      <ButtonSpaceForLogin />
+	      <br />
+	      <ButtonSpaceForRegister />
             </Route>
             <Route path="/login">
               <Login />

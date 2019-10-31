@@ -65,7 +65,7 @@ class Register extends Component {
   // regexTestPassword = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
 
   registerButton(event) {
-    var apiBasedUrl = "https://hpcompost.com/users";
+    var apiBasedUrl = "https://hpcompost.com/api/users";
     var self = this;
 
     console.log("values", this.state.name.first, 
@@ -109,7 +109,7 @@ class Register extends Component {
         "first": firstNameTrimmed,
         "last": lastNameTrimmed
       },
-      "email:": emailTrimmed,
+      "email": emailTrimmed,
       "password": passwordTrimmed,
       "DOB": dobTrimmed,
       "address": {
@@ -203,9 +203,9 @@ class Register extends Component {
             <FormControl component="fieldset">
               <FormLabel component="legend">Account Type</FormLabel>
               <RadioGroup aria-label="accountType" name="customized-radios" onChange= {(event, newValue) => this.setState({accountType: newValue})}>
-                <FormControlLabel value="contributor" control={<RadioButtons />} label="Contributor" />
-                <FormControlLabel value="homeowner" control={<RadioButtons />} label="Homeowner" />
-                <FormControlLabel value="businessowner" control={<RadioButtons />} label="Businessowner" />
+                <FormControlLabel value="Contributor" control={<RadioButtons />} label="Contributor" />
+                <FormControlLabel value="Homeowner" control={<RadioButtons />} label="Homeowner" />
+                <FormControlLabel value="Business Owner" control={<RadioButtons />} label="Businessowner" />
               </RadioGroup>
             </FormControl>
             <br />
