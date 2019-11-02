@@ -8,12 +8,13 @@ import {
   Route,
   Link
 } from "react-router-dom";
-import Map from './components/Map';
 import { MuiThemeProvider } from 'material-ui/styles';
 import RaisedButton from 'material-ui/RaisedButton';
+import MapContainer from './components/MapContainer';
 
 class App extends Component {
   render() {
+    const reload = () => window.location.reload();
     return (
       <div className="App">
         <Router>
@@ -25,6 +26,7 @@ class App extends Component {
               <br />
               <ButtonSpaceForRegister />
             </Route>
+            <Route path="/about.html" onEnter={reload} />
             <Route path="/login">
               <Login />
               <ButtonSpaceForLogin />
@@ -33,7 +35,8 @@ class App extends Component {
               <Register />
               <ButtonSpaceForRegister />
             </Route>
-            <Route path="/map" component={ Map } />
+            <Route path="/map" component={ MapContainer } />
+            <Route path="/dashboard.html" onEnter={reload} />
           </Switch>
         </Router>
       </div>
