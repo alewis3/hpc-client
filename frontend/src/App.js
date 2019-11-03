@@ -19,13 +19,6 @@ class App extends Component {
       <div className="App">
         <Router>
           <Switch>
-            <Route path="/index">
-              <h1>Host, Post, and Compost</h1>
-              <p>Welcome to HPC</p>
-              <ButtonSpaceForLogin />
-              <br />
-              <ButtonSpaceForRegister />
-            </Route>
             <Route path="/about.html" onEnter={reload} />
             <Route path="/login">
               <Login />
@@ -37,6 +30,13 @@ class App extends Component {
             </Route>
             <Route path="/map" component={ MapContainer } />
             <Route path="/dashboard.html" onEnter={reload} />
+            <Route path="/">
+              <h1>Host, Post, and Compost</h1>
+              <p>Welcome to HPC</p>
+              <ButtonSpaceForLogin />
+              <br />
+              <ButtonSpaceForRegister />
+            </Route>
           </Switch>
         </Router>
       </div>
