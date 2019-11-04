@@ -64,14 +64,14 @@ class Login extends Component {
             <br />
             <TextField
               label="Email"
-              onChange = {(event, newValue) => this.setState({email: newValue})}
+              onChange = {(event, newValue) => this.setState({email: event.target.value})}
             />
             <br/>
             <br/>
             <TextField
               label="Password"
               type="password"
-              onChange = {(event, newValue) => this.setState({password: newValue})}
+              onChange = {(event, newValue) => this.setState({password: event.target.value})}
             />
             <br/>
             <br />
