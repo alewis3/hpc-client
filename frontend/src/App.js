@@ -8,7 +8,7 @@ import {
   Route,
   Link
 } from "react-router-dom";
-import MapContainer from './components/MapContainer';
+import Map from './components/Map';
 import { MuiThemeProvider } from 'material-ui/styles';
 import RaisedButton from 'material-ui/RaisedButton';
 
@@ -33,7 +33,7 @@ class App extends Component {
               <Register />
               <ButtonSpaceForRegister />
             </Route>
-            <Route path="/map" component={ MapContainer } />
+            <Route path="/map" component={ Map } />
           </Switch>
         </Router>
       </div>
