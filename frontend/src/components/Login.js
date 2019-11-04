@@ -55,7 +55,7 @@ class Login extends Component {
           <div>
             <AppBar position="static">
               <Toolbar>
-                <Typography variant="h4" style={style.title}>
+                <Typography variant="h6" style={style.title}>
                   Login
                 </Typography>
               </Toolbar>
