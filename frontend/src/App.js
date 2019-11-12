@@ -12,6 +12,7 @@ import { ThemeProvider } from '@material-ui/styles';
 import Button from "@material-ui/core/Button";
 import MapContainer from './components/MapContainer';
 import theme from './theme';
+import DashTabs from './components/DashTabs';
 
 class App extends Component {
   render() {
@@ -31,6 +32,7 @@ class App extends Component {
             </Route>
             <Route path="/map" component={ MapContainer } />
             <Route path="/dashboard.html" onEnter={reload} />
+            <Route path="/dashboard" component={ DashTabs } />
             <Route path="/">
               <h1>Host, Post, and Compost</h1>
               <p>Welcome to HPC</p>
