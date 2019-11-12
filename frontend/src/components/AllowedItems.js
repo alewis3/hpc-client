@@ -16,8 +16,8 @@ export default function AllowedItems() {
         label="Multiline"
         multiline
         rows="10"
-        defaultValue="Default Value"
         className={classes.textField}
+        placeholder="List all allowed items or any other notes about your composting bin"
         margin="normal"
         variant="outlined"
       />

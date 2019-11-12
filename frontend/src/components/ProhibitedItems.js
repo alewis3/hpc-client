@@ -16,7 +16,7 @@ export default function ProhibitedItems() {
         label="Multiline"
         multiline
         rows="10"
-        defaultValue="Default Value"
+        placeholder="List prohibted items or any other notes about your composting bin"
         className={classes.textField}
         margin="normal"
         variant="outlined"
