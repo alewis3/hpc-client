@@ -31,7 +31,6 @@ class App extends Component {
               <ButtonSpaceForRegister />
             </Route>
             <Route path="/map" component={ MapContainer } />
-            <Route path="/dashboard.html" onEnter={reload} />
             <Route path="/dashboard" component={ DashTabs } />
             <Route path="/">
               <h1>Host, Post, and Compost</h1>

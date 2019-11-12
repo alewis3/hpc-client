@@ -7,6 +7,7 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import theme from '../theme';
+import HostPreferences from './HostPreferences';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -62,7 +63,7 @@ export default function SimpleTabs() {
           Messages
         </TabPanel>
         <TabPanel value={value} index={1}>
-          Preferences
+          <HostPreferences />
         </TabPanel>
       </ThemeProvider>
     </div>
