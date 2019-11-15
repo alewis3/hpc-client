@@ -66,7 +66,7 @@ class MapContainer extends Component {
 }
 
 export default GoogleApiWrapper({
-  apiKey: 'AIzaSyA21oeXAPbop6Qh1YCvpK9oNrSSqwCVsaY'
+  apiKey: 'AIzaSyByA8HpRS2kg5JWrU-zJ0UO_k2rBq2HyDw'
 }) (MapContainer);
 
 // add style heere to mimic 'container'
