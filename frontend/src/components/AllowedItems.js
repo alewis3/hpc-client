@@ -13,7 +13,6 @@ export default function AllowedItems() {
     <ThemeProvider theme={theme}>
       <TextField
         id="outlined-multiline-static"
-        label="Multiline"
         multiline
         rows="10"
         className={classes.textField}

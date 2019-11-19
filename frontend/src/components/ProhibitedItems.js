@@ -13,7 +13,6 @@ export default function ProhibitedItems() {
     <ThemeProvider theme={theme}>
       <TextField
         id="outlined-multiline-static"
-        label="Multiline"
         multiline
         rows="10"
         placeholder="List prohibted items or any other notes about your composting bin"
