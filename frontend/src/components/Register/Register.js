@@ -4,14 +4,18 @@ import { AppBar } from '@material-ui/core';
 import Button from "@material-ui/core/Button";
 import TextField from '@material-ui/core/TextField';
 import axios from 'axios';
-import RadioButtons from './RadioButtons'
+import RadioButtons from '../RadioButtons'
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
-import theme from '../theme';
+import theme from '../../theme';
 import Typography from '@material-ui/core/Typography';
 import Toolbar from '@material-ui/core/Toolbar';
+import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
+import { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
+import './Register.css';
+import Checkbox from '@material-ui/core/Checkbox';
 
 class Register extends Component {
   constructor(props) {
@@ -23,35 +27,20 @@ class Register extends Component {
       },
       email: '',
       password: '',
-      address: {
-        "streetAddress": '',
-        "city": '',
-        "state": '',
-        "zipCode": 0
-      },
-      DOB: '',
+      lat: 0,
+      long: 0,
+      above18: false,
       accountType: null,
     }
   }
 
-  handleStreetAddressChange = (event) => {
-    const inputStreetAddress = event.target.value;
-    this.setState(prev => ({address: {...prev.address, streetAddress: inputStreetAddress } }));
-  }
-
-  handleCityChange = (event) => {
-    const inputCity = event.target.value;
-    this.setState(prev => ({address: {...prev.address, city: inputCity} }));
-  }
-
-  handleStateChange = (event) => {
-    const inputState = event.target.value;
-    this.setState(prev => ({address: {...prev.address, state: inputState} }))
-  }
-
-  handleZipChange = (event) => {
-    const inputZip = event.target.value;
-    this.setState(prev => ({address: {...prev.address, zipCode: inputZip} }))
+  handleAddressChange(description) {
+    geocodeByAddress(description)
+    .then(results => getLatLng(results[0]))
+    .then(({ lat, lng }) => {
+      this.setState(prev => ({ lat: {...prev.lat, lat: lat} }));
+      // console.log(this.state.lat)
+    })
   }
 
   handleFirstNameChange = (event) => {
@@ -73,33 +62,23 @@ class Register extends Component {
     console.log("values", this.state.name.first, 
                           this.state.name.last, 
                           this.state.email, 
-                          this.state.password, 
-                          this.state.address, 
-                          this.state.DOB,
+                          this.state.password,
                           this.state.accountType);
     
-    if (this.state.name.first === "" || 
-        this.state.name.last === "" || 
-        this.state.email === "" || 
-        this.state.password === "" || 
-        this.state.DOB === "" || 
-        this.state.address.streetAddress === "" || 
-        this.state.address.city === "" || 
-        this.state.address.state === "" ||
-        this.state.accountType === null) {
-      alert("Fill in all fields!")
-      console.log("Missing fields")
-    }
+    // if (this.state.name.first === "" || 
+    //     this.state.name.last === "" || 
+    //     this.state.email === "" || 
+    //     this.state.password === "" ||
+    //     this.state.accountType === null) {
+    //   alert("Fill in all fields!")
+    //   console.log("Missing fields")
+    // }
 
     // trim fields whitespace
     let firstNameTrimmed = this.state.name.first.trim()
     let lastNameTrimmed = this.state.name.last.trim()
     let emailTrimmed = this.state.email.trim()
     let passwordTrimmed = this.state.password.trim()
-    let dobTrimmed = this.state.DOB.trim()
-    let streetAddressTrimmed = this.state.address.streetAddress.trim()
-    let cityTrimmed = this.state.address.city.trim()
-    let stateTrimmed = this.state.address.state.trim()
 
     // // test pw and zip code
     // if (!this.regexTestPassword.test(this.passwordTrimmed)) {
@@ -113,14 +92,14 @@ class Register extends Component {
       },
       "email": emailTrimmed,
       "password": passwordTrimmed,
-      "DOB": dobTrimmed,
-      "address": {
-        "streetAddress": streetAddressTrimmed,
-        "city": cityTrimmed,
-        "state": stateTrimmed,
-      },
-      "accountType": this.state.accountType
+      "above_18": !this.state.above18,
+      "lat": this.state.lat,
+      "long": this.state.long,
+      "account_type": this.state.accountType
     }
+
+    console.log(!this.state.above18)
+    console.log(payload)
 
     axios.post(apiBasedUrl + '/register', payload).then(function(response) {
       console.log(response);
@@ -175,31 +154,12 @@ class Register extends Component {
             />
             <br />
             <br />
-            <TextField 
-              label="Date of Birth"
-              onChange = {(event, newValue) => this.setState({DOB: event.target.value})}
-            />
             <br />
-            <br />
-            <TextField 
-              label="Street Address"
-              onChange = {this.handleStreetAddressChange}
-            />
-            <br />
-            <TextField 
-              label="City"
-              onChange = {this.handleCityChange}
-            />
-            <br />
-            <TextField 
-              label="State"
-              onChange = {this.handleStateChange}
-            />
-            <br />
-            <TextField 
-              label="Zip Code"
-              type="number"
-              onChange = {this.handleZipChange}
+            <GooglePlacesAutocomplete
+              onSelect={({ description }) => (
+                this.handleAddressChange(description)
+              )}
+              inputClassName="addressStyle"
             />
             <br />
             <br />
@@ -211,6 +171,20 @@ class Register extends Component {
                 <FormControlLabel value="Business Owner" control={<RadioButtons />} label="Businessowner" />
               </RadioGroup>
             </FormControl>
+            <br />
+            <br />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={!this.state.above18}
+                  onChange={(event) => {
+                    this.setState((prevState) => ({ above18: !prevState.above18 }));
+                  }}
+                  color="primary"
+                />
+              }
+              label="I am above 18 years of age."
+            />
             <br />
             <br />
             <Button 
