@@ -29,7 +29,7 @@ class Register extends Component {
       password: '',
       lat: 0,
       long: 0,
-      above18: false,
+      above18: true,
       accountType: null,
     }
   }
@@ -98,7 +98,6 @@ class Register extends Component {
       "account_type": this.state.accountType
     }
 
-    console.log(!this.state.above18)
     console.log(payload)
 
     axios.post(apiBasedUrl + '/register', payload).then(function(response) {
