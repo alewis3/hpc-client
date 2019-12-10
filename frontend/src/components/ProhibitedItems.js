@@ -23,7 +23,7 @@ class ProhibitedItems extends Component {
     }
 
     await axios.post(apiBaseUrl + '/prohibitedItems', payload).then(function (response) {
-      if (response.status == 200) {
+      if (response.data.success == true) {
         alert("Preferences Saved")
       } else {
         alert("Failed to save. Please try again later.")

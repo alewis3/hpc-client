@@ -24,7 +24,7 @@ class ResetPassword extends Component {
     }
 
     await axios.post(apiBaseUrl + '/resetPassword', payload).then(function (response) {
-      if (response.status = 200) {
+      if (response.data.success = true) {
         alert("Password reset successfully");
       } else {
         alert("Failed to reset password. Please try again later.")
