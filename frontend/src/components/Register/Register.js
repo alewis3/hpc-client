@@ -39,7 +39,6 @@ class Register extends Component {
     .then(results => getLatLng(results[0]))
     .then(({ lat, lng }) => {
       this.setState(prev => ({ lat: {...prev.lat, lat: lat} }));
-      // console.log(this.state.lat)
     })
   }
 
