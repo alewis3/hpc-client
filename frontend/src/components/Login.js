@@ -7,6 +7,10 @@ import axios from 'axios';
 import theme from '../theme';
 import Typography from '@material-ui/core/Typography';
 import Toolbar from '@material-ui/core/Toolbar';
+import {
+  BrowserRouter as Router,
+  Redirect
+} from "react-router-dom";
 
 class Login extends Component {
   constructor(props) {
@@ -19,7 +23,7 @@ class Login extends Component {
 
   // loginButton will call api with users email and pw
   // will recieve code and log appropriate response
-  loginButton(event) {
+  async loginButton(event) {
     var self = this;
     var apiBaseUrl = "https://hpcompost.com/api/users";
 
@@ -37,18 +41,34 @@ class Login extends Component {
       "password": passwordTrimmed
     }
 
-    axios.post(apiBaseUrl + '/login', payload).then(function(response) {
+    await axios.post(apiBaseUrl + '/login', payload).then(function (response) {
       if (response.status == 200 && response.data.accountType == "Contributor") {
         window.location.href = "https://hpcompost.com/map";
       } else if (response.status == 200 && response.data.accountType == "Homeowner" || response.data.accountType == "Business Owner") {
-        window.location.href = "https://hpcompost.com/dashboard.html";
+        // window.location.href = "https://hpcompost.com/dashboard";
+        self.setState({ email: response.data.email });
+        self.redirect()
       }
     }).catch(function (error) {
       console.log(error);
     });
   }
 
-  render() {  
+  redirect() {
+    return (
+      <Redirect
+        to={{
+          pathname: "/dashboard",
+          state: { 
+            email: this.state.email,
+            pw: this.state.password
+           }
+        }}
+      />
+    )
+  }
+
+  render() {
     return (
       <div>
         <ThemeProvider theme={theme}>
@@ -64,16 +84,16 @@ class Login extends Component {
             <br />
             <TextField
               label="Email"
-              onChange = {(event, newValue) => this.setState({email: event.target.value})}
+              onChange={(event, newValue) => this.setState({ email: event.target.value })}
             />
-            <br/>
-            <br/>
+            <br />
+            <br />
             <TextField
               label="Password"
               type="password"
-              onChange = {(event, newValue) => this.setState({password: event.target.value})}
+              onChange={(event, newValue) => this.setState({ password: event.target.value })}
             />
-            <br/>
+            <br />
             <br />
             <Button
               variant="contained"

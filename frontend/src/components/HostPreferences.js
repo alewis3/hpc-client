@@ -7,8 +7,9 @@ import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import AllowedItems from './AllowedItems';
 import ProhibitedItems from './ProhibitedItems'
+import ResetPassword from './ResetPassword';
 
-export default function HostPreferences() {
+export default function HostPreferences(props) {
   const classes = useStyles();
   
   return (
@@ -18,13 +19,19 @@ export default function HostPreferences() {
           <Grid item xs={6}>
             <Paper className={classes.paper}>
               <h4>Prohibited Items</h4>
-              <ProhibitedItems />
+              <ProhibitedItems props={this.props} />
             </Paper>
           </Grid>
           <Grid item xs={6}>
             <Paper className={classes.paper}>
               <h4>Allowed Items</h4>
-              <AllowedItems />
+              <AllowedItems props={this.props} />
+            </Paper>
+          </Grid>
+          <Grid item xs={12}>
+            <Paper className={classes.paper}>
+              <h4>Reset Password</h4>
+              <ResetPassword props={this.props} />
             </Paper>
           </Grid>
         </Grid>
