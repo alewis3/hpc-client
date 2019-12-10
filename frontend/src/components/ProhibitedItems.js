@@ -28,7 +28,9 @@ class ProhibitedItems extends Component {
       } else {
         alert("Failed to save. Please try again later.")
       }
-    })
+    }).catch(function (error) {
+      console.log(error)
+    });
   }
 
   render() {
