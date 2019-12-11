@@ -9,7 +9,7 @@ class ResetPassword extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      oldPw: this.props.props.props,
+      oldPw: '', // will be from props
       newPw: ''
     }
 
@@ -21,7 +21,7 @@ class ResetPassword extends Component {
     var apiBaseUrl = "https://hpcompost.com/api/user";
 
     var payload = {
-      "id": this.props.email,
+      "id": this.props.props.props,
       "newPw": this.state.newPw
     }
 
