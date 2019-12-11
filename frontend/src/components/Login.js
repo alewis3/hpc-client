@@ -18,7 +18,6 @@ class Login extends Component {
     this.state = {
       id: ""
     }
-    this.redirect = this.redirect.bind(this);
   }
 
   // loginButton will call api with users email and pw
@@ -48,37 +47,23 @@ class Login extends Component {
         window.location.href = "https://hpcompost.com/map";
       } else if (response.data.loginStatus == true && response.data.accountType == "Homeowner" || response.data.accountType == "Business Owner") {
         self.setState({ id: response.data.id });
-        return (
-          <Redirect
-            to={{
-              pathname: "/dashboard",
-              state: {
-                id: self.state.id
-              }
-            }}
-          />
-        )
       }
     }).catch(function (error) {
       console.log(error);
     });
   }
 
-  redirect() {
-    debugger;
-    return (
-      <Redirect
-        to={{
-          pathname: "/dashboard",
-          state: {
-            id: this.state.id
-          }
-        }}
-      />
-    )
-  }
-
   render() {
+    if (this.state.id !== "") {
+      return (
+        <Redirect
+          to={{
+            pathname: "/dashboard",
+            state: { id: this.state.id }
+          }}
+        />
+      )
+    }
     return (
       <div>
         <ThemeProvider theme={theme}>
