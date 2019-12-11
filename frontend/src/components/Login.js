@@ -16,8 +16,7 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: '',
-      password: ''
+      id: ''
     }
   }
 
@@ -46,7 +45,7 @@ class Login extends Component {
         window.location.href = "https://hpcompost.com/map";
       } else if (response.status == 200 && response.data.accountType == "Homeowner" || response.data.accountType == "Business Owner") {
         // window.location.href = "https://hpcompost.com/dashboard";
-        self.setState({ email: response.data.email });
+        self.setState({ email: response.data.id });
         self.redirect()
       }
     }).catch(function (error) {
@@ -60,8 +59,7 @@ class Login extends Component {
         to={{
           pathname: "/dashboard",
           state: { 
-            email: this.state.email,
-            pw: this.state.password
+            id: this.state.id
            }
         }}
       />

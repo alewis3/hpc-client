@@ -14,11 +14,11 @@ class ProhibitedItems extends Component {
   }
 
   async save() {
-    var sefl = this;
+    var self = this;
     var apiBaseUrl = "https://hpcompost.com/api/preferences"
 
     var payload = {
-      "email": this.props.email,
+      "id": this.props.id,
       "prohibitedItems": this.state.prohibitedItems
     }
 

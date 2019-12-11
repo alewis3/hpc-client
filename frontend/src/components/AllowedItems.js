@@ -19,7 +19,7 @@ class AllowedItems extends Component {
     var apiBaseUrl = "https://hpcompost.com/api/preferences";
 
     var payload = {
-      "email": this.props.email,
+      "id": this.props.id,
       "allowedItems": this.state.allowedItems
     }
 
