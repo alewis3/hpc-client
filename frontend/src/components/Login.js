@@ -39,14 +39,14 @@ class Login extends Component {
       "email": emailTrimmed,
       "password": passwordTrimmed
     }
-    
+
     console.log("payload: ", payload)
 
     await axios.post(apiBaseUrl + '/login', payload, { headers: { 'Content-Type': 'application/json' } }).then(function (response) {
       if (response.data.loginStatus == true && response.data.accountType == "Contributor") {
         window.location.href = "https://hpcompost.com/map";
       } else if (response.data.loginStatus == true && response.data.accountType == "Homeowner" || response.data.accountType == "Business Owner") {
-        this.setState({ id: response.data.id });
+        self.setState({ id: response.data.id });
         this.redirect()
       }
     }).catch(function (error) {
@@ -60,9 +60,9 @@ class Login extends Component {
       <Redirect
         to={{
           pathname: "/dashboard",
-          state: { 
+          state: {
             id: this.state.id
-           }
+          }
         }}
       />
     )
