@@ -18,7 +18,7 @@ class ResetPassword extends Component {
 
   async reset() {
     var self = this;
-    var apiBaseUrl = "https://hpcompost.com/api/user";
+    var apiBaseUrl = "https://hpcompost.com/api/users";
 
     var payload = {
       "id": this.props.props.props,
