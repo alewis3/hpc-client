@@ -9,7 +9,7 @@ class ResetPassword extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      oldPw: this.props.props,
+      oldPw: this.props.props.props,
       newPw: ''
     }
 

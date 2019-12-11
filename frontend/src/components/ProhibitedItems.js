@@ -19,7 +19,7 @@ class ProhibitedItems extends Component {
     var apiBaseUrl = "https://hpcompost.com/api/preferences"
 
     var payload = {
-      "id": this.props.props,
+      "id": this.props.props.props,
       "prohibitedItems": this.state.prohibitedItems
     }
 
