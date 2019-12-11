@@ -20,7 +20,7 @@ export default function HostPreferences(props) {
           <Grid item xs={6}>
             <Paper className={classes.paper}>
               <h4>Prohibited Items</h4>
-              <ProhibitedItems props={this.props} />
+              <ProhibitedItems props={props} />
               {/* <ProhibitedItems /> */}
             </Paper>
           </Grid>
