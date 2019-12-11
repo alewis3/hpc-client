@@ -21,21 +21,18 @@ export default function HostPreferences(props) {
             <Paper className={classes.paper}>
               <h4>Prohibited Items</h4>
               <ProhibitedItems props={props} />
-              {/* <ProhibitedItems /> */}
             </Paper>
           </Grid>
           <Grid item xs={6}>
             <Paper className={classes.paper}>
               <h4>Allowed Items</h4>
               <AllowedItems props={props} />
-              {/* <AllowedItems /> */}
             </Paper>
           </Grid>
           <Grid item xs={12}>
             <Paper className={classes.paper}>
               <h4>Reset Password</h4>
               <ResetPassword props={props} />
-              {/* <ResetPassword /> */}
             </Paper>
           </Grid>
         </Grid>

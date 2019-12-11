@@ -65,7 +65,6 @@ export default function SimpleTabs(props) {
         </TabPanel>
         <TabPanel value={value} index={1}>
           <HostPreferences props={props.location.state.id} />
-          {/* <HostPreferences /> */}
         </TabPanel>
       </ThemeProvider>
     </div>
