@@ -21,7 +21,7 @@ class ResetPassword extends Component {
     var apiBaseUrl = "https://hpcompost.com/api/user";
 
     var payload = {
-      "email": this.props.email,
+      "id": this.props.email,
       "newPw": this.state.newPw
     }
 
