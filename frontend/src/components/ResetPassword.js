@@ -9,7 +9,7 @@ class ResetPassword extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      oldPw: '', // will be from props
+      currentPw: '',
       newPw: ''
     }
 
@@ -22,7 +22,8 @@ class ResetPassword extends Component {
 
     var payload = {
       "id": this.props.props.props,
-      "newPw": this.state.newPw
+      "old": this.state.currentPw,
+      "new": this.state.newPw
     }
 
     console.log("payload: ", payload);
@@ -48,7 +49,7 @@ class ResetPassword extends Component {
             type="password"
             variant="outlined"
             style={style}
-            onChange
+            onChange={(event) => this.setState({ currentPw: event.target.value })}
           />
           <TextField
             id="outlined-basic"
@@ -56,6 +57,7 @@ class ResetPassword extends Component {
             type="password"
             variant="outlined"
             style={style}
+            onChange={(event) => this.setState({ newPw: event.target.value })}
           />
           <br />
           <Button
