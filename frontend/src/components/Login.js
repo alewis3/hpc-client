@@ -39,10 +39,14 @@ class Login extends Component {
       "email": emailTrimmed,
       "password": passwordTrimmed
     }
+
+    var headers = {
+      'Content-Type': 'application/json'
+    }
     
     console.log("payload: ", payload)
 
-    await axios.get(apiBaseUrl + '/login', payload).then(function (response) {
+    await axios.get(apiBaseUrl + '/login', payload, { headers: headers }).then(function (response) {
       if (response.data.loginStatus == true && response.data.accountType == "Contributor") {
         window.location.href = "https://hpcompost.com/map";
       } else if (response.data.loginStatus == 200 && response.data.accountType == "Homeowner" || response.data.accountType == "Business Owner") {
