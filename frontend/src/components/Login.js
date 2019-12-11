@@ -45,7 +45,7 @@ class Login extends Component {
     await axios.post(apiBaseUrl + '/login', payload, { headers: { 'Content-Type': 'application/json' } }).then(function (response) {
       if (response.data.loginStatus == true && response.data.accountType == "Contributor") {
         window.location.href = "https://hpcompost.com/map";
-      } else if (response.data.loginStatus == 200 && response.data.accountType == "Homeowner" || response.data.accountType == "Business Owner") {
+      } else if (response.data.loginStatus == true && response.data.accountType == "Homeowner" || response.data.accountType == "Business Owner") {
         this.setState({ id: response.data.id });
         this.redirect()
       }
