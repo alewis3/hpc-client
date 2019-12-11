@@ -49,6 +49,7 @@ class AllowedItems extends Component {
             variant="outlined"
             value={this.state.allowedItems}
             fullWidth={true}
+            onChange={(event) => this.setState({ allowedItems: event.target.value })}
           />
           <br />
           <Button
