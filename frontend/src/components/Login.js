@@ -43,10 +43,9 @@ class Login extends Component {
     console.log("payload: ", payload)
 
     await axios.get(apiBaseUrl + '/login', payload).then(function (response) {
-      if (response.status == 200 && response.data.accountType == "Contributor") {
+      if (response.data.loginStatus == true && response.data.accountType == "Contributor") {
         window.location.href = "https://hpcompost.com/map";
-      } else if (response.status == 200 && response.data.accountType == "Homeowner" || response.data.accountType == "Business Owner") {
-        // window.location.href = "https://hpcompost.com/dashboard";
+      } else if (response.data.loginStatus == 200 && response.data.accountType == "Homeowner" || response.data.accountType == "Business Owner") {
         self.setState({ email: response.data.id });
         self.redirect()
       }

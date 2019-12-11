@@ -112,7 +112,7 @@ class Register extends Component {
 
     await axios.post(apiBasedUrl + '/register', payload).then(function (response) {
       console.log(response);
-      if (response.data.code == 200) {
+      if (response.data.registrationStatus == true) {
         console.log("registration successful");
         alert("Registration successful!")
         window.location.href = "https://hpcompost.com/login"
