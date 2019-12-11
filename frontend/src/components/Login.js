@@ -39,6 +39,8 @@ class Login extends Component {
       "email": emailTrimmed,
       "password": passwordTrimmed
     }
+    
+    console.log("payload: ", payload)
 
     await axios.get(apiBaseUrl + '/login', payload).then(function (response) {
       if (response.status == 200 && response.data.accountType == "Contributor") {
