@@ -49,6 +49,7 @@ class ProhibitedItems extends Component {
             variant="outlined"
             value={this.state.allowedItems}
             fullWidth={true}
+            onChange={(event) => this.setState({ prohibitedItems: event.target.value })}
           />
           <br />
           <Button
