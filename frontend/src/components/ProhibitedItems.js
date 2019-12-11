@@ -18,9 +18,11 @@ class ProhibitedItems extends Component {
     var apiBaseUrl = "https://hpcompost.com/api/preferences"
 
     var payload = {
-      "id": this.props.id,
+      "id": this.props,
       "prohibitedItems": this.state.prohibitedItems
     }
+
+    console.log("payload: ", payload);
 
     await axios.post(apiBaseUrl + '/prohibitedItems', payload).then(function (response) {
       if (response.data.success == true) {

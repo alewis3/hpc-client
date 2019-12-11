@@ -9,9 +9,11 @@ class ResetPassword extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      oldPw: this.props.pw,
+      oldPw: this.props,
       newPw: ''
     }
+
+    console.log(props);
   }
 
   async reset() {
@@ -22,6 +24,8 @@ class ResetPassword extends Component {
       "email": this.props.email,
       "newPw": this.state.newPw
     }
+
+    console.log("payload: ", payload);
 
     await axios.post(apiBaseUrl + '/resetPassword', payload).then(function (response) {
       if (response.data.success = true) {
