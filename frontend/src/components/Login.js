@@ -53,7 +53,7 @@ class Login extends Component {
             to={{
               pathname: "/dashboard",
               state: {
-                id: this.state.id
+                id: self.state.id
               }
             }}
           />
