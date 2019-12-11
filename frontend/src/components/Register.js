@@ -29,29 +29,29 @@ class Register extends Component {
         "state": '',
         "zip": 0
       },
-      dob: '',
+      above18: false,
       accountType: null,
     }
   }
 
   handleStreetAddressChange = (event) => {
     const inputStreetAddress = event.target.value;
-    this.setState(prev => ({ location: { ...prev.address, address: inputStreetAddress } }));
+    this.setState(prev => ({ location: { ...prev.location, address: inputStreetAddress } }));
   }
 
   handleCityChange = (event) => {
     const inputCity = event.target.value;
-    this.setState(prev => ({ location: { ...prev.address, city: inputCity } }));
+    this.setState(prev => ({ location: { ...prev.location, city: inputCity } }));
   }
 
   handleStateChange = (event) => {
     const inputState = event.target.value;
-    this.setState(prev => ({ location: { ...prev.address, state: inputState } }))
+    this.setState(prev => ({ location: { ...prev.location, state: inputState } }))
   }
 
   handleZipChange = (event) => {
     const inputZip = event.target.value;
-    this.setState(prev => ({ location: { ...prev.address, zip: inputZip } }))
+    this.setState(prev => ({ location: { ...prev.location, zip: inputZip } }))
   }
 
   handleFirstNameChange = (event) => {
@@ -74,13 +74,13 @@ class Register extends Component {
       this.state.name.last === "" ||
       this.state.email === "" ||
       this.state.password === "" ||
-      this.state.dob === "" ||
       this.state.location.address === "" ||
       this.state.location.city === "" ||
       this.state.location.state === "" ||
       this.state.accountType === null) {
         alert("Fill in all fields!")
         console.log("Missing fields")
+        return;
     }
 
     // trim fields whitespace
@@ -88,7 +88,6 @@ class Register extends Component {
     let lastNameTrimmed = this.state.name.last.trim()
     let emailTrimmed = this.state.email.trim()
     let passwordTrimmed = this.state.password.trim()
-    let dobTrimmed = this.state.dob.trim()
     let streetAddressTrimmed = this.state.location.address.trim()
     let cityTrimmed = this.state.location.city.trim()
     let stateTrimmed = this.state.location.state.trim()
@@ -105,12 +104,11 @@ class Register extends Component {
       },
       "email": emailTrimmed,
       "password": passwordTrimmed,
-      "DOB": dobTrimmed,
       "location": {
         "address": streetAddressTrimmed,
         "city": cityTrimmed,
         "state": stateTrimmed,
-        "zip": this.state.zip
+        "zip": this.state.location.zip
       },
       "accountType": this.state.accountType
     }
@@ -168,12 +166,6 @@ class Register extends Component {
               label="Password"
               type="password"
               onChange={(event, newValue) => this.setState({ password: event.target.value })}
-            />
-            <br />
-            <br />
-            <TextField
-              label="Date of Birth"
-              onChange={(event, newValue) => this.setState({ dob: event.target.value })}
             />
             <br />
             <br />
