@@ -12,6 +12,9 @@ import FormLabel from '@material-ui/core/FormLabel';
 import theme from '../theme';
 import Typography from '@material-ui/core/Typography';
 import Toolbar from '@material-ui/core/Toolbar';
+import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
+import './Register.css';
+import Checkbox from '@material-ui/core/Checkbox';
 
 class Register extends Component {
   constructor(props) {
@@ -29,24 +32,16 @@ class Register extends Component {
         "state": '',
         "zip": 0
       },
-      above18: false,
+      above18: true,
       accountType: null,
     }
   }
 
-  handleStreetAddressChange = (event) => {
-    const inputStreetAddress = event.target.value;
-    this.setState(prev => ({ location: { ...prev.location, address: inputStreetAddress } }));
-  }
-
-  handleCityChange = (event) => {
-    const inputCity = event.target.value;
-    this.setState(prev => ({ location: { ...prev.location, city: inputCity } }));
-  }
-
-  handleStateChange = (event) => {
-    const inputState = event.target.value;
-    this.setState(prev => ({ location: { ...prev.location, state: inputState } }))
+  handleAddressChange(description) {
+    var address = description.split(',');
+    this.setState(prev => ({ location: { ...prev.location, address: address[0] } }));
+    this.setState(prev => ({ location: { ...prev.location, city: address[1] } }));
+    this.setState(prev => ({ location: { ...prev.location, state: address[2] } }));
   }
 
   handleZipChange = (event) => {
@@ -78,9 +73,9 @@ class Register extends Component {
       this.state.location.city === "" ||
       this.state.location.state === "" ||
       this.state.accountType === null) {
-        alert("Fill in all fields!")
-        console.log("Missing fields")
-        return;
+      alert("Fill in all fields!")
+      console.log("Missing fields")
+      return;
     }
 
     // trim fields whitespace
@@ -112,7 +107,7 @@ class Register extends Component {
       },
       "accountType": this.state.accountType
     }
-    
+
     console.log("payload: ", payload)
 
     await axios.post(apiBasedUrl + '/register', payload).then(function (response) {
@@ -169,25 +164,31 @@ class Register extends Component {
             />
             <br />
             <br />
-            <TextField
-              label="Street Address"
-              onChange={this.handleStreetAddressChange}
-            />
-            <br />
-            <TextField
-              label="City"
-              onChange={this.handleCityChange}
-            />
-            <br />
-            <TextField
-              label="State"
-              onChange={this.handleStateChange}
+            <GooglePlacesAutocomplete
+              onSelect={({ description }) => (
+                this.handleAddressChange(description)
+              )}
+              inputClassName="addressStyle"
             />
             <br />
             <TextField
               label="Zip Code"
               type="number"
               onChange={this.handleZipChange}
+            />
+            <br />
+            <br />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={!this.state.above18}
+                  onChange={(event) => {
+                    this.setState((prevState) => ({ above18: !prevState.above18 }));
+                  }}
+                  color="primary"
+                />
+              }
+              label="I am above 18 years of age."
             />
             <br />
             <br />
