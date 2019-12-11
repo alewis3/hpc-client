@@ -11,7 +11,7 @@ import ResetPassword from './ResetPassword';
 
 export default function HostPreferences(props) {
   const classes = useStyles();
-  console.log(props)
+  console.log("host preferences props: ", props)
   
   return (
     <ThemeProvider theme={theme}>
