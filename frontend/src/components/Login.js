@@ -41,7 +41,9 @@ class Login extends Component {
     }
 
     var headers = {
-      'Content-Type': 'application/json'
+      headers: {
+        'Content-Type': 'application/json'
+      }
     }
     
     console.log("payload: ", payload)
