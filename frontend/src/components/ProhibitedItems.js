@@ -11,6 +11,7 @@ class ProhibitedItems extends Component {
     this.state = {
       prohibitedItems: ''
     }
+    console.log("prohibited props: ", props)
   }
 
   async save() {
@@ -18,7 +19,7 @@ class ProhibitedItems extends Component {
     var apiBaseUrl = "https://hpcompost.com/api/preferences"
 
     var payload = {
-      "id": this.props.id.props.props,
+      "id": this.props,
       "prohibitedItems": this.state.prohibitedItems
     }
 
