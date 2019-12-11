@@ -41,7 +41,7 @@ class Login extends Component {
       "password": passwordTrimmed
     }
 
-    await axios.post(apiBaseUrl + '/login', payload).then(function (response) {
+    await axios.get(apiBaseUrl + '/login', payload).then(function (response) {
       if (response.status == 200 && response.data.accountType == "Contributor") {
         window.location.href = "https://hpcompost.com/map";
       } else if (response.status == 200 && response.data.accountType == "Homeowner" || response.data.accountType == "Business Owner") {
