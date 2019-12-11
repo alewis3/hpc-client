@@ -14,6 +14,21 @@ class AllowedItems extends Component {
     }
   }
 
+  componentDidMount() {
+    var self = this;
+    var apiBaseUrl = "https://hpcompost.com/api/preferences";
+
+    axios.get(apiBaseUrl + '/allowedItems?id=' + this.props.props.props).then(function (response) {
+      if (response.data.success == true) {
+        console.log(response)
+
+        self.setState({ allowedItems: response.data.allowedItems })
+      }
+    }).catch(function (error) {
+      console.log(error)
+    });
+  }
+
   async save() {
     var self = this;
     var apiBaseUrl = "https://hpcompost.com/api/preferences";

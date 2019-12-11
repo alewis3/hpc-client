@@ -14,9 +14,24 @@ class ProhibitedItems extends Component {
     console.log("prohibited props: ", props)
   }
 
+  componentDidMount() {
+    var self = this;
+    var apiBaseUrl = "https://hpcompost.com/api/preferences";
+
+    axios.get(apiBaseUrl + '/prohibitedItems?id=' + this.props.props.props).then(function (response) {
+      if (response.data.success == true) {
+        console.log(response)
+
+        self.setState({ prohibitedItems: response.data.prohibitedItems })
+      }
+    }).catch(function (error) {
+      console.log(error)
+    });
+  }
+
   async save() {
     var self = this;
-    var apiBaseUrl = "https://hpcompost.com/api/preferences"
+    var apiBaseUrl = "https://hpcompost.com/api/preferences";
 
     var payload = {
       "id": this.props.props.props,
