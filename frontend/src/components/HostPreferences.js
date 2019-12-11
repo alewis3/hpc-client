@@ -19,22 +19,22 @@ export default function HostPreferences(props) {
           <Grid item xs={6}>
             <Paper className={classes.paper}>
               <h4>Prohibited Items</h4>
-              {/* <ProhibitedItems props={this.props} /> */}
-              <ProhibitedItems />
+              <ProhibitedItems props={this.props} />
+              {/* <ProhibitedItems /> */}
             </Paper>
           </Grid>
           <Grid item xs={6}>
             <Paper className={classes.paper}>
               <h4>Allowed Items</h4>
-              {/* <AllowedItems props={this.props} /> */}
-              <AllowedItems />
+              <AllowedItems props={this.props} />
+              {/* <AllowedItems /> */}
             </Paper>
           </Grid>
           <Grid item xs={12}>
             <Paper className={classes.paper}>
               <h4>Reset Password</h4>
-              {/* <ResetPassword props={this.props} /> */}
-              <ResetPassword />
+              <ResetPassword props={this.props} />
+              {/* <ResetPassword /> */}
             </Paper>
           </Grid>
         </Grid>
