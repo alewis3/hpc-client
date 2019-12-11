@@ -9,7 +9,7 @@ import Box from '@material-ui/core/Box';
 import theme from '../theme';
 import HostPreferences from './HostPreferences';
 
-function TabPanel(props) {
+function TabPanel() {
   const { children, value, index, ...other } = props;
 
   return (
@@ -41,6 +41,7 @@ function a11yProps(index) {
 
 export default function SimpleTabs(props) {
   const [value, setValue] = React.useState(0);
+  console.log(props)
 
   const handleChange = (event, newValue) => {
     setValue(newValue);

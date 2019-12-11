@@ -16,7 +16,7 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: ""
+      id: ''
     }
   }
 
@@ -54,7 +54,8 @@ class Login extends Component {
   }
 
   render() {
-    if (this.state.id !== "") {
+    if (this.state.id !== '') {
+      console.log("id: ", this.state.id)
       return (
         <Redirect
           to={{
