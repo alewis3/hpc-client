@@ -11,6 +11,7 @@ import ResetPassword from './ResetPassword';
 
 export default function HostPreferences(props) {
   const classes = useStyles();
+  console.log(props)
   
   return (
     <ThemeProvider theme={theme}>
@@ -26,14 +27,14 @@ export default function HostPreferences(props) {
           <Grid item xs={6}>
             <Paper className={classes.paper}>
               <h4>Allowed Items</h4>
-              <AllowedItems props={this.props} />
+              <AllowedItems props={props.id} />
               {/* <AllowedItems /> */}
             </Paper>
           </Grid>
           <Grid item xs={12}>
             <Paper className={classes.paper}>
               <h4>Reset Password</h4>
-              <ResetPassword props={this.props} />
+              <ResetPassword props={props.id} />
               {/* <ResetPassword /> */}
             </Paper>
           </Grid>
