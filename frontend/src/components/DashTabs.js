@@ -9,7 +9,7 @@ import Box from '@material-ui/core/Box';
 import theme from '../theme';
 import HostPreferences from './HostPreferences';
 
-function TabPanel() {
+function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
   return (
