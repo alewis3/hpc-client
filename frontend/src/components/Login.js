@@ -48,7 +48,7 @@ class Login extends Component {
         window.location.href = "https://hpcompost.com/map";
       } else if (response.data.loginStatus == true && response.data.accountType == "Homeowner" || response.data.accountType == "Business Owner") {
         self.setState({ id: response.data.id });
-        console.log(this.state.id)
+        console.log(self);
         self.redirect()
       }
     }).catch(function (error) {
