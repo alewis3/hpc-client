@@ -23,35 +23,35 @@ class Register extends Component {
       },
       email: '',
       password: '',
-      address: {
-        "streetAddress": '',
+      location: {
+        "address": '',
         "city": '',
         "state": '',
-        "zipCode": 0
+        "zip": 0
       },
-      DOB: '',
+      dob: '',
       accountType: null,
     }
   }
 
   handleStreetAddressChange = (event) => {
     const inputStreetAddress = event.target.value;
-    this.setState(prev => ({ address: { ...prev.address, streetAddress: inputStreetAddress } }));
+    this.setState(prev => ({ location: { ...prev.address, address: inputStreetAddress } }));
   }
 
   handleCityChange = (event) => {
     const inputCity = event.target.value;
-    this.setState(prev => ({ address: { ...prev.address, city: inputCity } }));
+    this.setState(prev => ({ location: { ...prev.address, city: inputCity } }));
   }
 
   handleStateChange = (event) => {
     const inputState = event.target.value;
-    this.setState(prev => ({ address: { ...prev.address, state: inputState } }))
+    this.setState(prev => ({ location: { ...prev.address, state: inputState } }))
   }
 
   handleZipChange = (event) => {
     const inputZip = event.target.value;
-    this.setState(prev => ({ address: { ...prev.address, zipCode: inputZip } }))
+    this.setState(prev => ({ location: { ...prev.address, zip: inputZip } }))
   }
 
   handleFirstNameChange = (event) => {
@@ -70,22 +70,14 @@ class Register extends Component {
     var apiBasedUrl = "https://hpcompost.com/api/users";
     var self = this;
 
-    console.log("values", this.state.name.first,
-      this.state.name.last,
-      this.state.email,
-      this.state.password,
-      this.state.address,
-      this.state.DOB,
-      this.state.accountType);
-
     if (this.state.name.first === "" ||
       this.state.name.last === "" ||
       this.state.email === "" ||
       this.state.password === "" ||
-      this.state.DOB === "" ||
-      this.state.address.streetAddress === "" ||
-      this.state.address.city === "" ||
-      this.state.address.state === "" ||
+      this.state.dob === "" ||
+      this.state.location.address === "" ||
+      this.state.location.city === "" ||
+      this.state.location.state === "" ||
       this.state.accountType === null) {
         alert("Fill in all fields!")
         console.log("Missing fields")
@@ -96,10 +88,10 @@ class Register extends Component {
     let lastNameTrimmed = this.state.name.last.trim()
     let emailTrimmed = this.state.email.trim()
     let passwordTrimmed = this.state.password.trim()
-    let dobTrimmed = this.state.DOB.trim()
-    let streetAddressTrimmed = this.state.address.streetAddress.trim()
-    let cityTrimmed = this.state.address.city.trim()
-    let stateTrimmed = this.state.address.state.trim()
+    let dobTrimmed = this.state.dob.trim()
+    let streetAddressTrimmed = this.state.location.address.trim()
+    let cityTrimmed = this.state.location.city.trim()
+    let stateTrimmed = this.state.location.state.trim()
 
     // // test pw and zip code
     // if (!this.regexTestPassword.test(this.passwordTrimmed)) {
@@ -114,20 +106,24 @@ class Register extends Component {
       "email": emailTrimmed,
       "password": passwordTrimmed,
       "DOB": dobTrimmed,
-      "address": {
-        "streetAddress": streetAddressTrimmed,
+      "location": {
+        "address": streetAddressTrimmed,
         "city": cityTrimmed,
         "state": stateTrimmed,
+        "zip": this.state.zip
       },
       "accountType": this.state.accountType
     }
+    
+    console.log("payload: ", payload)
 
     await axios.post(apiBasedUrl + '/register', payload).then(function (response) {
       console.log(response);
       if (response.data.code == 200) {
         console.log("registration successful");
         alert("Registration successful!")
-      } else if (response.data.code == 401) {
+        window.location.href = "https://hpcompost.com/login"
+      } else {
         console.log("incorrect pw");
         alert("incorrect pw");
       }
@@ -177,7 +173,7 @@ class Register extends Component {
             <br />
             <TextField
               label="Date of Birth"
-              onChange={(event, newValue) => this.setState({ DOB: event.target.value })}
+              onChange={(event, newValue) => this.setState({ dob: event.target.value })}
             />
             <br />
             <br />
