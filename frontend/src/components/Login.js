@@ -48,8 +48,16 @@ class Login extends Component {
         window.location.href = "https://hpcompost.com/map";
       } else if (response.data.loginStatus == true && response.data.accountType == "Homeowner" || response.data.accountType == "Business Owner") {
         self.setState({ id: response.data.id });
-        console.log(self);
-        self.redirect()
+        return (
+          <Redirect
+            to={{
+              pathname: "/dashboard",
+              state: {
+                id: this.state.id
+              }
+            }}
+          />
+        )
       }
     }).catch(function (error) {
       console.log(error);
