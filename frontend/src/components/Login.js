@@ -16,8 +16,9 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: ''
+      id: ""
     }
+    this.redirect = this.redirect.bind(this);
   }
 
   // loginButton will call api with users email and pw
@@ -47,7 +48,7 @@ class Login extends Component {
         window.location.href = "https://hpcompost.com/map";
       } else if (response.data.loginStatus == true && response.data.accountType == "Homeowner" || response.data.accountType == "Business Owner") {
         self.setState({ id: response.data.id });
-        this.redirect()
+        self.redirect()
       }
     }).catch(function (error) {
       console.log(error);
