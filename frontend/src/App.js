@@ -22,6 +22,7 @@ class App extends Component {
         <Router>
           <Switch>
             <Route path="/about.html" onEnter={reload} />
+            <Route path="/hpc.html" onEnter={reload} />
             <Route path="/login">
               <Login />
               <ButtonSpaceForLogin />

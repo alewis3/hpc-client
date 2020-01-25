@@ -39,8 +39,9 @@ function a11yProps(index) {
   };
 }
 
-export default function SimpleTabs() {
+export default function SimpleTabs(props) {
   const [value, setValue] = React.useState(0);
+  console.log(props)
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -63,7 +64,7 @@ export default function SimpleTabs() {
           Messages
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <HostPreferences />
+          <HostPreferences props={props.location.state.id} />
         </TabPanel>
       </ThemeProvider>
     </div>

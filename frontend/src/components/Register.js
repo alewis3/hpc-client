@@ -12,6 +12,9 @@ import FormLabel from '@material-ui/core/FormLabel';
 import theme from '../theme';
 import Typography from '@material-ui/core/Typography';
 import Toolbar from '@material-ui/core/Toolbar';
+import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
+import './Register.css';
+import Checkbox from '@material-ui/core/Checkbox';
 
 class Register extends Component {
   constructor(props) {
@@ -23,72 +26,56 @@ class Register extends Component {
       },
       email: '',
       password: '',
-      address: {
-        "streetAddress": '',
+      location: {
+        "address": '',
         "city": '',
         "state": '',
-        "zipCode": 0
+        "zip": 0
       },
-      DOB: '',
+      above18: true,
       accountType: null,
     }
   }
 
-  handleStreetAddressChange = (event) => {
-    const inputStreetAddress = event.target.value;
-    this.setState(prev => ({address: {...prev.address, streetAddress: inputStreetAddress } }));
-  }
-
-  handleCityChange = (event) => {
-    const inputCity = event.target.value;
-    this.setState(prev => ({address: {...prev.address, city: inputCity} }));
-  }
-
-  handleStateChange = (event) => {
-    const inputState = event.target.value;
-    this.setState(prev => ({address: {...prev.address, state: inputState} }))
+  handleAddressChange(description) {
+    var address = description.split(',');
+    this.setState(prev => ({ location: { ...prev.location, address: address[0] } }));
+    this.setState(prev => ({ location: { ...prev.location, city: address[1] } }));
+    this.setState(prev => ({ location: { ...prev.location, state: address[2] } }));
   }
 
   handleZipChange = (event) => {
     const inputZip = event.target.value;
-    this.setState(prev => ({address: {...prev.address, zipCode: inputZip} }))
+    this.setState(prev => ({ location: { ...prev.location, zip: inputZip } }))
   }
 
   handleFirstNameChange = (event) => {
     const inputFirstName = event.target.value;
-    this.setState(prev => ({name: {...prev.name, first: inputFirstName} }))
+    this.setState(prev => ({ name: { ...prev.name, first: inputFirstName } }))
   }
 
   handleLastNameChange = (event) => {
     const inputLastName = event.target.value;
-    this.setState(prev => ({name: {...prev.name, last: inputLastName} }))
+    this.setState(prev => ({ name: { ...prev.name, last: inputLastName } }))
   }
 
   // regexTestPassword = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
 
-  registerButton(event) {
+  async registerButton(event) {
     var apiBasedUrl = "https://hpcompost.com/api/users";
     var self = this;
 
-    console.log("values", this.state.name.first, 
-                          this.state.name.last, 
-                          this.state.email, 
-                          this.state.password, 
-                          this.state.address, 
-                          this.state.DOB,
-                          this.state.accountType);
-    
-    if (this.state.name.first === "" || 
-        this.state.name.last === "" || 
-        this.state.email === "" || 
-        this.state.password === "" || 
-        this.state.DOB === "" || 
-        this.state.address.streetAddress === "" || 
-        this.state.address.city === "" || 
-        this.state.address.state === "" ||
-        this.state.accountType === null) {
+    if (this.state.name.first === "" ||
+      this.state.name.last === "" ||
+      this.state.email === "" ||
+      this.state.password === "" ||
+      this.state.location.address === "" ||
+      this.state.location.city === "" ||
+      this.state.location.state === "" ||
+      this.state.accountType === null) {
       alert("Fill in all fields!")
       console.log("Missing fields")
+      return;
     }
 
     // trim fields whitespace
@@ -96,10 +83,9 @@ class Register extends Component {
     let lastNameTrimmed = this.state.name.last.trim()
     let emailTrimmed = this.state.email.trim()
     let passwordTrimmed = this.state.password.trim()
-    let dobTrimmed = this.state.DOB.trim()
-    let streetAddressTrimmed = this.state.address.streetAddress.trim()
-    let cityTrimmed = this.state.address.city.trim()
-    let stateTrimmed = this.state.address.state.trim()
+    let streetAddressTrimmed = this.state.location.address.trim()
+    let cityTrimmed = this.state.location.city.trim()
+    let stateTrimmed = this.state.location.state.trim()
 
     // // test pw and zip code
     // if (!this.regexTestPassword.test(this.passwordTrimmed)) {
@@ -113,24 +99,27 @@ class Register extends Component {
       },
       "email": emailTrimmed,
       "password": passwordTrimmed,
-      "DOB": dobTrimmed,
-      "address": {
-        "streetAddress": streetAddressTrimmed,
+      "location": {
+        "address": streetAddressTrimmed,
         "city": cityTrimmed,
         "state": stateTrimmed,
+        "zip": this.state.location.zip
       },
       "accountType": this.state.accountType
     }
 
-    axios.post(apiBasedUrl + '/register', payload).then(function(response) {
+    console.log("payload: ", payload)
+
+    await axios.post(apiBasedUrl + '/register', payload).then(function (response) {
       console.log(response);
-       if (response.data.code == 200) {
-         console.log("registration successful");
-         alert("Registration successful!")
-       } else if (response.data.code == 401) {
-         console.log("incorrect pw");
-         alert("incorrect pw");
-       }
+      if (response.data.registrationStatus == true) {
+        console.log("registration successful");
+        alert("Registration successful!")
+        window.location.href = "https://hpcompost.com/login"
+      } else {
+        console.log("incorrect pw");
+        alert("incorrect pw");
+      }
     }).catch(function (error) {
       console.log(error);
     });
@@ -148,64 +137,64 @@ class Register extends Component {
                 </Typography>
               </Toolbar>
             </AppBar>
-            <br/>
-            <br/>
-            <TextField 
+            <br />
+            <br />
+            <TextField
               label="First Name"
-              onChange = {this.handleFirstNameChange}
+              onChange={this.handleFirstNameChange}
             />
             <br />
             <br />
-            <TextField 
+            <TextField
               label="Last Name"
-              onChange = {this.handleLastNameChange}
+              onChange={this.handleLastNameChange}
             />
             <br />
             <br />
-            <TextField 
+            <TextField
               label="Email"
-              onChange = {(event, newValue) => this.setState({email: event.target.value})}
+              onChange={(event, newValue) => this.setState({ email: event.target.value })}
             />
             <br />
             <br />
-            <TextField 
+            <TextField
               label="Password"
               type="password"
-              onChange = {(event, newValue) => this.setState({password: event.target.value})}
+              onChange={(event, newValue) => this.setState({ password: event.target.value })}
             />
             <br />
             <br />
-            <TextField 
-              label="Date of Birth"
-              onChange = {(event, newValue) => this.setState({DOB: event.target.value})}
+            <GooglePlacesAutocomplete
+              onSelect={({ description }) => (
+                this.handleAddressChange(description)
+              )}
+              inputClassName="addressStyle"
             />
             <br />
-            <br />
-            <TextField 
-              label="Street Address"
-              onChange = {this.handleStreetAddressChange}
-            />
-            <br />
-            <TextField 
-              label="City"
-              onChange = {this.handleCityChange}
-            />
-            <br />
-            <TextField 
-              label="State"
-              onChange = {this.handleStateChange}
-            />
-            <br />
-            <TextField 
+            <TextField
               label="Zip Code"
               type="number"
-              onChange = {this.handleZipChange}
+              onChange={this.handleZipChange}
+            />
+            <br />
+            <br />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={!this.state.above18}
+                  onChange={(event) => {
+                    this.setState((prevState) => ({ above18: !prevState.above18 }));
+                  }}
+                  color="primary"
+                />
+              }
+              label="I am above 18 years of age."
             />
             <br />
             <br />
             <FormControl component="fieldset">
               <FormLabel component="legend">Account Type</FormLabel>
-              <RadioGroup aria-label="accountType" name="customized-radios" onChange= {(event, newValue) => this.setState({accountType: newValue})}>
+              <RadioGroup aria-label="accountType" name="customized-radios" onChange={(event, newValue) => this.setState({ accountType: newValue })}>
                 <FormControlLabel value="Contributor" control={<RadioButtons />} label="Contributor" />
                 <FormControlLabel value="Homeowner" control={<RadioButtons />} label="Homeowner" />
                 <FormControlLabel value="Business Owner" control={<RadioButtons />} label="Businessowner" />
@@ -213,7 +202,7 @@ class Register extends Component {
             </FormControl>
             <br />
             <br />
-            <Button 
+            <Button
               variant="contained"
               color="primary"
               style={style}
