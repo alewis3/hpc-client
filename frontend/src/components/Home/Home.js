@@ -27,8 +27,8 @@ class Home extends Component {
 
         <section className="location-section">
           <h1>Ready to join the composting community?</h1>
-          <p><Link to="/login">If you already have an account, click here to login.</Link></p>
-          <p><Link to="/register">Otherwise, click here to register now!</Link></p>
+          <p>If you already have an account, <Link to="/login">click here</Link> to login.</p>
+          <p>Otherwise, <Link to="register">click here</Link> to register now!</p>
         </section>
 
         <section className="location-section">
