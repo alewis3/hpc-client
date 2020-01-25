@@ -13,6 +13,7 @@ import Button from "@material-ui/core/Button";
 import MapContainer from './components/MapContainer';
 import theme from './theme';
 import DashTabs from './components/DashTabs';
+import Home from './components/Home/Home';
 
 class App extends Component {
   render() {
@@ -21,8 +22,8 @@ class App extends Component {
       <div className="App">
         <Router>
           <Switch>
+            <Route path="/home" component={ Home } />
             <Route path="/about.html" onEnter={reload} />
-            <Route path="/hpc.html" onEnter={reload} />
             <Route path="/login">
               <Login />
               <ButtonSpaceForLogin />

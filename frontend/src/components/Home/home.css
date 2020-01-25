@@ -25,6 +25,7 @@ body {
     /* Typography Declarations */
     font-family: "Gentium Book Basic", Georgia, serif;
     font-size: 2em;
+    color: white;
 }
 
 .masthead-heading {
