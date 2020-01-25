@@ -53,7 +53,7 @@ class Home extends Component {
             <ul className="social">
               <li><a className="css-is-deranged" href="https://www.instagram.com">Instagram</a></li>
               <li><a className="css-is-deranged" href="https://twitter.com/home">Twitter</a></li>
-              <li><a className="css-is-deranged" href="https://www.facebook.com">Facebooks</a></li>
+              <li><a className="css-is-deranged" href="https://www.facebook.com">Facebook</a></li>
             </ul>
           </footer>
         </section>
