@@ -103,7 +103,7 @@ class Register extends Component {
         "address": streetAddressTrimmed,
         "city": cityTrimmed,
         "state": stateTrimmed,
-        "zip": this.state.location.zip
+        "zip": parseInt(this.state.location.zip, 10)
       },
       "accountType": this.state.accountType
     }
