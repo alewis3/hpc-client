@@ -63,8 +63,7 @@ class LoginModal extends Component {
         <Redirect
           to={{
             pathname: "/dashboard",
-            state: { id: "5e2f1be7ec53c15ae2cb96e2" }
-            // state: { id: this.state.id }
+            state: { id: this.state.id }
           }}
         />
       )
