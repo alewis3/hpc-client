@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './home.css';
-import { Link } from "react-router-dom";
+import LoginModal from '../LoginModal';
+import RegisterModal from '../RegisterModal';
 
 class Home extends Component {
   render() {
@@ -25,8 +26,9 @@ class Home extends Component {
 
         <section className="location-section">
           <h1>Ready to join the composting community?</h1>
-          <p>If you already have an account, <Link to="/login">click here</Link> to login.</p>
-          <p>Otherwise, <Link to="register">click here</Link> to register now!</p>
+          <LoginModal />
+          <br />
+          <RegisterModal />
         </section>
 
         <section className="location-section">
