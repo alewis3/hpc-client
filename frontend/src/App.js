@@ -14,6 +14,7 @@ import MapContainer from './components/MapContainer';
 import theme from './theme';
 import DashTabs from './components/DashTabs';
 import Home from './components/Home/Home';
+import LoginModal from './components/LoginModal';
 
 class App extends Component {
   render() {
@@ -23,7 +24,7 @@ class App extends Component {
         <Router>
           <Switch>
             <Route path="/home" component={ Home } />
-            <Route path="/about.html" onEnter={reload} />
+            <Route path="/about.html" onEnter={ reload } />
             <Route path="/login">
               <Login />
               <ButtonSpaceForLogin />
@@ -34,12 +35,7 @@ class App extends Component {
             </Route>
             <Route path="/map" component={ MapContainer } />
             <Route path="/dashboard" component={ DashTabs } />
-            <Route path="/">
-              <h1>Host, Post, and Compost</h1>
-              <p>Welcome to HPC</p>
-              <ButtonSpaceForLogin />
-              <br />
-              <ButtonSpaceForRegister />
+            <Route path="/" component={Home}>
             </Route>
           </Switch>
         </Router>
