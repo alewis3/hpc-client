@@ -14,20 +14,19 @@ class ProhibitedItems extends Component {
     console.log("prohibited props: ", props)
   }
 
-  // componentDidMount() {
-  //   var self = this;
-  //   var apiBaseUrl = "https://hpcompost.com/api/preferences";
+  componentDidMount() {
+    var self = this;
+    var apiBaseUrl = "https://hpcompost.com/api/preferences";
 
-  //   axios.get(apiBaseUrl + '/prohibitedItems?id=' + this.props.props.props).then(function (response) {
-  //     if (response.data.success == true) {
-  //       console.log(response)
-
-  //       self.setState({ prohibitedItems: response.data.prohibitedItems })
-  //     }
-  //   }).catch(function (error) {
-  //     console.log(error)
-  //   });
-  // }
+    axios.get(apiBaseUrl + '/prohibitedItems?id=' + this.props.props.props).then(function (response) {
+      if (response.data.success == true) {
+        console.log('response', response)
+        self.setState({ prohibitedItems: response.data.prohibitedItems })
+      } 
+    }).catch(function (error) {
+      console.log(error)
+    });
+  }
 
   async save() {
     var self = this;
@@ -62,7 +61,7 @@ class ProhibitedItems extends Component {
             rows="10"
             placeholder="List prohibited items or any other notes about your composting bin"
             variant="outlined"
-            value={this.state.allowedItems}
+            value={this.state.prohibitedItems}
             fullWidth={true}
             onChange={(event) => this.setState({ prohibitedItems: event.target.value })}
           />
