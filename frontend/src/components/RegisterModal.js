@@ -38,23 +38,24 @@ class RegisterModal extends Component {
     }
   }
 
-  handleAddressChange(event) {
-    const address = event.target.value;
-    this.setState(prev => ({ location: { ...prev.location, address: address } }))
-    // var address = description.split(',');
-    // this.setState(prev => ({ location: { ...prev.location, address: address[0] } }));
-    // this.setState(prev => ({ location: { ...prev.location, city: address[1] } }));
-    // this.setState(prev => ({ location: { ...prev.location, state: address[2] } }));
-  }
-
-  handleCityChange(event) {
-    const city = event.target.value;
-    this.setState(prev => ({ location: { ...prev.location, city: city } }))
-  }
-
   handleZipChange = (event) => {
     const inputZip = event.target.value;
     this.setState(prev => ({ location: { ...prev.location, zip: inputZip } }))
+  }
+
+  handleAddress = (event) => {
+    const inputAddress = event.target.value;
+    this.setState(prev => ({ location: { ...prev.location, address: inputAddress } }))
+  }
+
+  handleCity = (event) => {
+    const inputCity = event.target.value;
+    this.setState(prev => ({ location: { ...prev.location, city: inputCity } }))
+  }
+
+  handleState = (event) => {
+    const inputState = event.target.value;
+    this.setState(prev => ({ location: { ...prev.location, state: inputState } }))
   }
 
   handleFirstNameChange = (event) => {
@@ -70,6 +71,8 @@ class RegisterModal extends Component {
   async registerButton(event) {
     var apiBasedUrl = "https://hpcompost.com/api/users";
     var self = this;
+
+    console.log(this.state)
 
     if (this.state.name.first === "" ||
       this.state.name.last === "" ||
@@ -120,8 +123,8 @@ class RegisterModal extends Component {
       console.log(response);
       if (response.data.registrationStatus == true) {
         console.log("registration successful");
-        alert("Registration successful!")
-        window.location.href = "https://hpcompost.com/login"
+        self.setState({ open: false })
+        alert("Registration successful! Please login.")
       } else {
         console.log("incorrect pw");
         alert("incorrect pw");
@@ -146,21 +149,18 @@ class RegisterModal extends Component {
               </DialogContentText>
               <TextField
                 autoFocus
-                margin="dense"
                 style={{ margin: 16 }}
                 label="First Name"
                 onChange={this.handleFirstNameChange}
               />
               <TextField
                 autoFocus
-                margin="dense"
                 style={{ margin: 16 }}
                 label="Last Name"
                 onChange={this.handleLastNameChange}
               />
               <TextField
                 autoFocus
-                margin="dense"
                 label="Email Address"
                 type="email"
                 style={{ margin: 16 }}
@@ -168,33 +168,35 @@ class RegisterModal extends Component {
               />
               <TextField
                 autoFocus
-                margin="dense"
                 label="Password"
                 type="password"
                 style={{ margin: 16 }}
-                onChange={(event, newValue) => this.setState({ password: event.target.value })}
+                onChange={(event) => this.setState({ password: event.target.value })}
               />
               <TextField
                 autoFocus
-                margin="dense"
                 label="Street Address"
                 fullWidth
                 style={{ margin: 16 }}
-                onChange={this.handleAddressChange}
+                onChange={this.handleAddress}
               />
               <TextField
                 autoFocus
-                margin="dense"
                 label="City"
-                style={{ margin: 16 }}
-                onChange={this.handleCityChange}
+                style={{ margin: 5 }}
+                onChange={this.handleCity}
               />
               <TextField
                 autoFocus
-                margin="dense"
+                label="State"
+                style={{ margin: 5 }}
+                onChange={this.handleState}
+              />
+              <TextField
+                autoFocus
                 label="Zip Code"
                 type="number"
-                style={{ margin: 16 }}
+                style={{ margin: 5 }}
                 onChange={this.handleZipChange}
               />
               <FormControlLabel
@@ -209,7 +211,6 @@ class RegisterModal extends Component {
                 }
                 label="I am above 18 years of age."
                 autoFocus
-                margin="dense"
                 style={{ display: 'flex', flexGrow: 1, justifyContent: 'center' }}
               />
               <FormControl component="fieldset" fullWidth={true}>
