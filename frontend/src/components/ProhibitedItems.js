@@ -21,9 +21,11 @@ class ProhibitedItems extends Component {
     axios.get(apiBaseUrl + '/prohibitedItems?id=' + this.props.props.props).then(function (response) {
       if (response.data.success == true) {
         console.log('response', response)
+        alert('Items saved!')
         self.setState({ prohibitedItems: response.data.prohibitedItems })
       } 
     }).catch(function (error) {
+      alert('Something went wrong. Please try again later.')
       console.log(error)
     });
   }
