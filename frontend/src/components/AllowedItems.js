@@ -21,11 +21,9 @@ class AllowedItems extends Component {
     axios.get(apiBaseUrl + '/allowedItems?id=' + this.props.props.props).then(function (response) {
       if (response.data.success == true) {
         console.log('response', response)
-        alert('Items saved!')
         self.setState({ allowedItems: response.data.allowedItems })
       } 
     }).catch(function (error) {
-      alert('Something went wrong. Please try again later.')
       console.log(error)
     });
   }
