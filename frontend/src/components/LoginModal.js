@@ -48,7 +48,6 @@ class LoginModal extends Component {
 
     await axios.post(apiBaseUrl + '/login', payload, { headers: { 'Content-Type': 'application/json' } }).then(function (response) {
       if (response.data.loginStatus == true && response.data.accountType == "Contributor") {
-        // window.location.href = "https://hpcompost.com/map";
         self.setState({ id: response.data.id, accountType: response.data.accountType })
       } else if (response.data.loginStatus == true && response.data.accountType == "Homeowner" || response.data.accountType == "Business Owner") {
         self.setState({ id: response.data.id });
