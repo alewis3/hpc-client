@@ -32,12 +32,14 @@ class MapContainer extends Component {
 
   onMarkerClick = (props, marker, e) => {
     console.log(props)
+    var address = props.options.location.address.concat(' ', props.options.location.city, ' ', props.options.location.state, ' ', props.options.location.zip.toString())
     this.setState({
       selectedPlace: props,
       activeMarker: marker,
       showingInfoWindow: true,
       allowedItems: props.options.allowedItems,
-      prohibitedItems: props.options.prohibitedItems
+      prohibitedItems: props.options.prohibitedItems,
+      address: address
     });
   }
 
@@ -60,7 +62,8 @@ class MapContainer extends Component {
         onClick={this.onMarkerClick}
         options={{
           allowedItems: homeowner.allowedItems,
-          prohibitedItems: homeowner.prohibitedItems
+          prohibitedItems: homeowner.prohibitedItems,
+          location: homeowner.location
         }}
       />
     })
@@ -76,7 +79,8 @@ class MapContainer extends Component {
         onClick={this.onMarkerClick}
         options={{
           allowedItems: businessOwner.allowedItems,
-          prohibitedItems: businessOwner.prohibitedItems
+          prohibitedItems: businessOwner.prohibitedItems,
+          location: businessOwner.location
         }}
       />
     })
@@ -99,11 +103,10 @@ class MapContainer extends Component {
         >
           <div>
             <h3>{this.state.selectedPlace.title}</h3>
+            <h4>{ this.state.address }</h4>
             <span>Allowed Items: { this.state.allowedItems }</span>
             <br />
             <span>Prohibited Items: { this.state.prohibitedItems }</span>
-            {/* <br />
-            <div>Address: { this.state.address }</div> */}
           </div>
         </InfoWindow>
       </Map>
