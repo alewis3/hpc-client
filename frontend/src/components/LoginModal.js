@@ -19,6 +19,7 @@ class LoginModal extends Component {
     super(props);
     this.state = {
       id: '',
+      accountType: '',
       open: false
     }
   }
@@ -47,9 +48,11 @@ class LoginModal extends Component {
 
     await axios.post(apiBaseUrl + '/login', payload, { headers: { 'Content-Type': 'application/json' } }).then(function (response) {
       if (response.data.loginStatus == true && response.data.accountType == "Contributor") {
-        window.location.href = "https://hpcompost.com/map";
+        self.setState({ id: response.data.id, accountType: response.data.accountType })
       } else if (response.data.loginStatus == true && response.data.accountType == "Homeowner" || response.data.accountType == "Business Owner") {
         self.setState({ id: response.data.id });
+      } else {
+        alert('invalid creds')
       }
     }).catch(function (error) {
       console.log(error);
@@ -57,13 +60,25 @@ class LoginModal extends Component {
   }
 
   render() {
-    if (this.state.id !== '') {
+    if (this.state.id !== '' && this.state.accountType !== "Contributor") {
       console.log("id: ", this.state.id)
+      console.log("accountType", this.state.accountType)
       return (
         <Redirect
           to={{
             pathname: "/dashboard",
             state: { id: this.state.id }
+          }}
+        />
+      )
+    } else if (this.state.id !== '' && this.state.accountType == "Contributor") {
+      console.log("id: ", this.state.id)
+      console.log("accountType", this.state.accountType)
+      return (
+        <Redirect
+          to={{
+            pathname: "/map",
+            state: { id: this.state.id, accountType: this.state.accountType }
           }}
         />
       )

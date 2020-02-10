@@ -1,19 +1,47 @@
 import React, { Component } from 'react';
 import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
+import axios from 'axios';
 
 class MapContainer extends Component {
-  state = {
-    showingInfoWindow: false,  //Hides or the shows the infoWindow
-    activeMarker: {},          //Shows the active marker upon click
-    selectedPlace: {}          //Shows the infoWindow to the selected place upon a marker
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      showingInfoWindow: false,  //Hides or the shows the infoWindow
+      activeMarker: {},          //Shows the active marker upon click
+      selectedPlace: {},          //Shows the infoWindow to the selected place upon a marker
+      homeowners: [],
+      businessOwners: [],
+      allowedItems: '',
+      prohibitedItems: '',
+      address: ''
+    };
+  }
 
-  onMarkerClick = (props, marker, e) =>
-  this.setState({
-    selectedPlace: props,
-    activeMarker: marker,
-    showingInfoWindow: true
-  });
+  async componentDidMount() {
+    var self = this;
+    var apiBaseUrl = "https://hpcompost.com/api/users/";
+
+    await axios.get(apiBaseUrl + "hosts?id=" + this.props.location.state.id, { headers: { 'Content-Type': 'application/json' } }).then(function (response) {
+      if (response.data.success == true) {
+        self.setState({ homeowners: response.data.homeowners, businessOwners: response.data.businessOwners })
+      }
+    }).catch(function (error) {
+      console.log(error);
+    });
+  }
+
+  onMarkerClick = (props, marker, e) => {
+    console.log(props)
+    var address = props.options.location.address.concat(' ', props.options.location.city, ' ', props.options.location.state, ' ', props.options.location.zip.toString())
+    this.setState({
+      selectedPlace: props,
+      activeMarker: marker,
+      showingInfoWindow: true,
+      allowedItems: props.options.allowedItems,
+      prohibitedItems: props.options.prohibitedItems,
+      address: address
+    });
+  }
 
   onClose = props => {
     if (this.state.showingInfoWindow) {
@@ -24,40 +52,61 @@ class MapContainer extends Component {
     }
   };
 
+  renderHomeownerMarkers() {
+    return this.state.homeowners.map((homeowner, i) => {
+      return <Marker
+        key={i}
+        title={homeowner.name.first.concat(" ", homeowner.name.last)}
+        position={{ lat: homeowner.location.lat, lng: homeowner.location.long }}
+        icon={{ url: "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png" }}
+        onClick={this.onMarkerClick}
+        options={{
+          allowedItems: homeowner.allowedItems,
+          prohibitedItems: homeowner.prohibitedItems,
+          location: homeowner.location
+        }}
+      />
+    })
+  }
+
+  renderBusinessOwnerMarkers() {
+    return this.state.businessOwners.map((businessOwner, i) => {
+      return <Marker
+        key={i}
+        title={businessOwner.name.first.concat(" ", businessOwner.name.last)}
+        position={{ lat: businessOwner.location.lat, lng: businessOwner.location.long }}
+        icon={{ url: "http://maps.google.com/mapfiles/ms/icons/purple-dot.png" }}
+        onClick={this.onMarkerClick}
+        options={{
+          allowedItems: businessOwner.allowedItems,
+          prohibitedItems: businessOwner.prohibitedItems,
+          location: businessOwner.location
+        }}
+      />
+    })
+  }
+
   render() {
     return (
       <Map
         google={this.props.google}
-        zoom={11}
+        zoom={12}
         style={mapStyles}
-        initialCenter={{ lat: 30.266666, lng: -97.733330}}
+        initialCenter={{ lat: 30.266666, lng: -97.733330 }}
       >
-        <Marker position={{ lat: 30.2297, lng: -97.7539}}
-                name={'Homeowner'}
-                onClick={this.onMarkerClick}
-                icon={{url: "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png"}} 
-        />
+        {this.renderHomeownerMarkers()}
+        {this.renderBusinessOwnerMarkers()}
         <InfoWindow
           marker={this.state.activeMarker}
           visible={this.state.showingInfoWindow}
           onClose={this.onClose}
         >
           <div>
-            <h4>{this.state.selectedPlace.name}</h4>
-          </div>
-        </InfoWindow>
-        <Marker position={{lat: 30.2477, lng: -97.7181}}
-                name={'Business Owner'}
-                onClick={this.onMarkerClick}
-                icon={{url: "http://maps.google.com/mapfiles/ms/icons/purple-dot.png"}} 
-        />
-        <InfoWindow
-          marker={this.state.activeMarker}
-          visible={this.state.showingInfoWindow}
-          onClose={this.onClose}
-        >
-          <div>
-            <h4>{this.state.selectedPlace.name}</h4>
+            <h3>{this.state.selectedPlace.title}</h3>
+            <h4>{ this.state.address }</h4>
+            <span>Allowed Items: { this.state.allowedItems }</span>
+            <br />
+            <span>Prohibited Items: { this.state.prohibitedItems }</span>
           </div>
         </InfoWindow>
       </Map>
@@ -67,9 +116,9 @@ class MapContainer extends Component {
 
 export default GoogleApiWrapper({
   apiKey: 'AIzaSyByA8HpRS2kg5JWrU-zJ0UO_k2rBq2HyDw'
-}) (MapContainer);
+})(MapContainer);
 
-// add style heere to mimic 'container'
+// add style here to mimic 'container'
 const mapStyles = {
   width: '100%',
   height: '100vh',
