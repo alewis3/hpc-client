@@ -51,6 +51,8 @@ class LoginModal extends Component {
         self.setState({ id: response.data.id, accountType: response.data.accountType })
       } else if (response.data.loginStatus == true && response.data.accountType == "Homeowner" || response.data.accountType == "Business Owner") {
         self.setState({ id: response.data.id });
+      } else {
+        alert('invalid creds')
       }
     }).catch(function (error) {
       console.log(error);
@@ -58,7 +60,7 @@ class LoginModal extends Component {
   }
 
   render() {
-    if (this.state.id !== '' && !this.state.accountType == "Contributor") {
+    if (this.state.id !== '' && this.state.accountType !== "Contributor") {
       console.log("id: ", this.state.id)
       console.log("accountType", this.state.accountType)
       return (
