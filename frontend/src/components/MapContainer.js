@@ -11,7 +11,9 @@ class MapContainer extends Component {
       activeMarker: {},          //Shows the active marker upon click
       selectedPlace: {},          //Shows the infoWindow to the selected place upon a marker
       homeowners: [],
-      businessOwners: []
+      businessOwners: [],
+      allowedItems: '',
+      prohibitedItems: ''
     };
   }
 
@@ -30,11 +32,12 @@ class MapContainer extends Component {
 
   onMarkerClick = (props, marker, e) => {
     console.log(props)
-    console.log(marker)
     this.setState({
       selectedPlace: props,
       activeMarker: marker,
-      showingInfoWindow: true
+      showingInfoWindow: true,
+      allowedItems: props.options.allowedItems,
+      prohibitedItems: props.options.prohibitedItems
     });
   }
 
@@ -96,6 +99,9 @@ class MapContainer extends Component {
         >
           <div>
             <h3>{this.state.selectedPlace.title}</h3>
+            <span>Allowed Items: { this.state.allowedItems }</span>
+            <br />
+            <span>Prohibited Items: { this.state.prohibitedItems }</span>
           </div>
         </InfoWindow>
       </Map>
