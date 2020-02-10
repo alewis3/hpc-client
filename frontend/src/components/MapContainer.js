@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
 import axios from 'axios';
-import { DialogTitle } from '@material-ui/core';
 
 class MapContainer extends Component {
   constructor(props) {
@@ -13,7 +12,8 @@ class MapContainer extends Component {
       homeowners: [],
       businessOwners: [],
       allowedItems: '',
-      prohibitedItems: ''
+      prohibitedItems: '',
+      address: ''
     };
   }
 
@@ -102,6 +102,8 @@ class MapContainer extends Component {
             <span>Allowed Items: { this.state.allowedItems }</span>
             <br />
             <span>Prohibited Items: { this.state.prohibitedItems }</span>
+            {/* <br />
+            <div>Address: { this.state.address }</div> */}
           </div>
         </InfoWindow>
       </Map>
