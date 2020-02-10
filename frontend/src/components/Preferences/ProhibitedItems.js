@@ -3,7 +3,7 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import Button from "@material-ui/core/Button";
 import TextField from '@material-ui/core/TextField';
 import axios from 'axios';
-import theme from '../theme';
+import theme from '../../theme';
 
 class ProhibitedItems extends Component {
   constructor(props) {

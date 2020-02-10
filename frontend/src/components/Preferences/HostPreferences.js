@@ -1,7 +1,7 @@
 import React from 'react';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { AppBar, Button } from '@material-ui/core';
-import theme from '../theme';
+import theme from '../../theme';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
