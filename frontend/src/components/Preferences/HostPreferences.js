@@ -9,6 +9,8 @@ import ProhibitedItems from './ProhibitedItems'
 import ResetPassword from './ResetPassword';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import BlockUsers from './BlockUsers';
+import Blacklist from './Blacklist';
 
 export default function HostPreferences(props) {
   const classes = useStyles();
@@ -31,6 +33,18 @@ export default function HostPreferences(props) {
           style={{ display: 'flex', flexGrow: 1, justifyContent: 'center' }}
         />
         <Grid container spacing={3}>
+          <Grid item xs={6}>
+            <Paper className={classes.paper}>
+              <h4>Block a User</h4>
+              <BlockUsers />
+            </Paper>
+          </Grid>
+          <Grid item xs={6}>
+            <Paper className={classes.paper}>
+              <h4>Blacklist</h4>
+              <Blacklist />
+            </Paper>
+          </Grid>
           <Grid item xs={6}>
             <Paper className={classes.paper}>
               <h4>Prohibited Items</h4>
