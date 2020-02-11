@@ -6,9 +6,10 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import theme from '../../theme';
-import HostPreferences from './HostPreferences';
-import MapContainer from '../MapContainer';
+import theme from '../theme';
+import HostPreferences from './Preferences/HostPreferences';
+import MapContainer from './MapContainer';
+import ContributorPreferences from './Preferences/ContributorPreferences';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -66,8 +67,7 @@ export default function SimpleTabs(props) {
             <MapContainer props={props.location.state.id}/>
           </TabPanel>
           <TabPanel value={value} index={1}>
-            {/* this would instead be contributor preferences */}
-            {/* <HostPreferences props={props.location.state.id} /> */}
+            <ContributorPreferences props={props.location.state.id} />
           </TabPanel>
           <TabPanel value={value} index={2}>
             Messages
