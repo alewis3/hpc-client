@@ -67,7 +67,7 @@ class LoginModal extends Component {
         <Redirect
           to={{
             pathname: "/dashboard",
-            state: { id: this.state.id }
+            state: { id: this.state.id, accountType: this.state.accountType }
           }}
         />
       )
@@ -77,7 +77,7 @@ class LoginModal extends Component {
       return (
         <Redirect
           to={{
-            pathname: "/map",
+            pathname: "/dashboard",
             state: { id: this.state.id, accountType: this.state.accountType }
           }}
         />
