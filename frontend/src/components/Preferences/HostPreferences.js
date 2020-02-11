@@ -11,6 +11,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import BlockUsers from './BlockUsers';
 import Blacklist from './Blacklist';
+import ListingAddress from './ListingAddress';
 
 export default function HostPreferences(props) {
   const classes = useStyles();
@@ -33,6 +34,12 @@ export default function HostPreferences(props) {
           style={{ display: 'flex', flexGrow: 1, justifyContent: 'center' }}
         />
         <Grid container spacing={3}>
+          <Grid item xs={12}>
+            <Paper className={classes.paper}>
+              <h4>Listing Address</h4>
+              <ListingAddress />
+            </Paper>
+          </Grid>
           <Grid item xs={6}>
             <Paper className={classes.paper}>
               <h4>Block a User</h4>

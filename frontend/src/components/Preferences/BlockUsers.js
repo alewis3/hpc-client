@@ -8,6 +8,9 @@ import theme from '../../theme';
 class BlockUsers extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      email: ''
+    }
   }
 
   blockUser() {
