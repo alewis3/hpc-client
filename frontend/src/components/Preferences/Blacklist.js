@@ -34,7 +34,7 @@ class Blacklist extends Component {
           {this.generate(
             <ListItem>
               <ListItemText
-                primary="Single-line item"
+                primary="Bad user"
                 secondary={this.state.secondary ? 'Secondary text' : null}
               />
             </ListItem>,
