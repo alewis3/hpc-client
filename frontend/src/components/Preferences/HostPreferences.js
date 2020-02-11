@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ThemeProvider } from '@material-ui/core/styles';
-import { AppBar, Button } from '@material-ui/core';
 import theme from '../../theme';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -8,14 +7,29 @@ import { makeStyles } from '@material-ui/core/styles';
 import AllowedItems from './AllowedItems';
 import ProhibitedItems from './ProhibitedItems'
 import ResetPassword from './ResetPassword';
+import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 export default function HostPreferences(props) {
   const classes = useStyles();
-  console.log("host preferences props: ", props)
-  
+  const [isListed, setIsListed] = useState(false);
+
   return (
     <ThemeProvider theme={theme}>
       <div className={classes.root}>
+        <h1 style={{fontFamily: 'arial, sans-serif'}}>Welcome back to HPC!</h1>
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={isListed}
+              onChange={() => setIsListed(!isListed)}
+              color="primary"
+            />
+          }
+          label="I am accepting contributions from the community."
+          autoFocus
+          style={{ display: 'flex', flexGrow: 1, justifyContent: 'center' }}
+        />
         <Grid container spacing={3}>
           <Grid item xs={6}>
             <Paper className={classes.paper}>
