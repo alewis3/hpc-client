@@ -7,32 +7,19 @@ import { makeStyles } from '@material-ui/core/styles';
 import AllowedItems from './AllowedItems';
 import ProhibitedItems from './ProhibitedItems'
 import ResetPassword from './ResetPassword';
-import Checkbox from '@material-ui/core/Checkbox';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import BlockUsers from './BlockUsers';
 import Blacklist from './Blacklist';
 import ListingAddress from './ListingAddress';
+import ToggleListing from './ToggleListing';
 
 export default function HostPreferences(props) {
   const classes = useStyles();
-  const [isListed, setIsListed] = useState(false);
 
   return (
     <ThemeProvider theme={theme}>
       <div className={classes.root}>
         <h1 style={{fontFamily: 'arial, sans-serif'}}>Welcome back to HPC!</h1>
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={isListed}
-              onChange={() => setIsListed(!isListed)}
-              color="primary"
-            />
-          }
-          label="I am accepting contributions from the community."
-          autoFocus
-          style={{ display: 'flex', flexGrow: 1, justifyContent: 'center' }}
-        />
+        <ToggleListing props={props} />
         <Grid container spacing={3}>
           <Grid item xs={12}>
             <Paper className={classes.paper}>
