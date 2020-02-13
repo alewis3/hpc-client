@@ -15,7 +15,7 @@ class ToggleListing extends Component {
     var self = this;
     var apiBaseUrl = "https://hpcompost.com/api/preferences";
 
-    axios.get(apiBaseUrl + '/isListingOn?id=' + this.props.props.props).then(function(response) {
+    axios.get(apiBaseUrl + '/isListingOn?id=' + this.props.props.props.id).then(function(response) {
       if (response.data.success) {
         self.setState({ isListed: response.data.isListingOn })
       }
@@ -29,7 +29,7 @@ class ToggleListing extends Component {
     var apiBaseUrl = "https://hpcompost.com/api/preferences";
 
     var payload = {
-      "id": this.props.props.props
+      "id": this.props.props.props.id
     }
 
     if (!this.state.isListed) {

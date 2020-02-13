@@ -18,7 +18,7 @@ class AllowedItems extends Component {
     var self = this;
     var apiBaseUrl = "https://hpcompost.com/api/preferences";
 
-    axios.get(apiBaseUrl + '/allowedItems?id=' + this.props.props.props).then(function (response) {
+    axios.get(apiBaseUrl + '/allowedItems?id=' + this.props.props.props.id).then(function (response) {
       if (response.data.success == true) {
         console.log('response', response)
         self.setState({ allowedItems: response.data.allowedItems })
@@ -33,7 +33,7 @@ class AllowedItems extends Component {
     var apiBaseUrl = "https://hpcompost.com/api/preferences";
 
     var payload = {
-      "id": this.props.props.props,
+      "id": this.props.props.props.id,
       "allowedItems": this.state.allowedItems
     }
 

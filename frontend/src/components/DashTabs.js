@@ -90,7 +90,7 @@ export default function SimpleTabs(props) {
             </Tabs>
           </AppBar>
           <TabPanel value={value} index={0}>
-            <HostPreferences props={props.location.state.id} />
+            <HostPreferences props={props.location.state} />
           </TabPanel>
           <TabPanel value={value} index={1}>
             Messages
