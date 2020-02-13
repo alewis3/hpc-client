@@ -24,7 +24,7 @@ export default function HostPreferences(props) {
           <Grid item xs={12}>
             <Paper className={classes.paper}>
               <h4>Listing Address</h4>
-              <ListingAddress />
+              <ListingAddress props={props} />
             </Paper>
           </Grid>
           <Grid item xs={6}>

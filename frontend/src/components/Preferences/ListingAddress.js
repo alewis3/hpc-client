@@ -17,11 +17,26 @@ class ListingAddress extends Component {
       }
     }
   }
+ 
+  componentDidMount() {
+    var self = this;
+    var apiBaseUrl = "https://hpcompost.com/api/preferences";
 
-  // will need 
-  // componentDidMount() {
-
-  // }
+    axios.get(apiBaseUrl + '/profile?id=' + self.props.props.props.id).then(function(response) {
+      if (response.data.success == true) {
+        self.setState({
+          location: {
+            address: response.data.user.location.address,
+            city: response.data.user.location.city,
+            state: response.data.user.location.state,
+            zip: response.data.user.location.zip
+          }
+        })
+      }
+    }).catch(function(error) {
+      console.log(error)
+    })
+  }
 
   udpate(event) {
 
@@ -55,18 +70,21 @@ class ListingAddress extends Component {
           label="Street Address"
           fullWidth
           style={{ margin: 16 }}
+          value={this.state.location.address}
           onChange={this.handleAddress}
         />
         <TextField
           autoFocus
           label="City"
           style={{ margin: 5 }}
+          value={this.state.location.city}
           onChange={this.handleCity}
         />
         <TextField
           autoFocus
           label="State"
           style={{ margin: 5 }}
+          value={this.state.location.state}
           onChange={this.handleState}
         />
         <TextField
@@ -74,6 +92,7 @@ class ListingAddress extends Component {
           label="Zip Code"
           type="number"
           style={{ margin: 5 }}
+          value={this.state.location.zip}
           onChange={this.handleZipChange}
         />
         <br />
