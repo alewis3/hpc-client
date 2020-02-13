@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
-import { ThemeProvider } from '@material-ui/core/styles';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import theme from '../../theme';
 import axios from 'axios';
 
 class ToggleListing extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isListed: false
+      isListed: true
     }
   }
 
@@ -19,7 +17,6 @@ class ToggleListing extends Component {
 
     axios.get(apiBaseUrl + '/isListingOn?id=' + this.props.props.props).then(function(response) {
       if (response.data.success) {
-        console.log(response)
         self.setState({ isListed: response.data.isListingOn })
       }
     }).catch(function(error) {
@@ -27,15 +24,42 @@ class ToggleListing extends Component {
     })
   }
 
+  async toggle() {
+    var self = this;
+    var apiBaseUrl = "https://hpcompost.com/api/preferences";
+
+    var payload = {
+      "id": this.props.props.props
+    }
+
+    if (!this.state.isListed) {
+      await axios.patch(apiBaseUrl + '/enableListing', payload).then(function(response) {
+        if (response.data.success) {
+          alert("You are now being listed as active")
+        }
+      }).catch(function(error) {
+        console.log(error)
+      })
+    } else if (this.state.isListed) {
+      await axios.patch(apiBaseUrl + '/disableListing', payload).then(function(response) {
+        if(response.data.success) {
+          alert("You are no longer being listed as active")
+        }
+      }).catch(function(error) {
+        console.log(error)
+      })
+    }
+  }
+
   render() {
     return (
       <FormControlLabel
         control={
           <Checkbox
-            checked={!this.state.isListed}
-            onChange={(event) => {
-              this.setState((prevState) => ({ isListed: !prevState.isListed }))
-              console.log(this.state.isListed)
+            checked={this.state.isListed}
+            onChange={() => {
+              this.setState((prevState) => ({ isListed: !prevState.isListed }));
+              this.toggle();
             }}
             color="primary"
           />
