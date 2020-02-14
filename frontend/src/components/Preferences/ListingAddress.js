@@ -38,8 +38,37 @@ class ListingAddress extends Component {
     })
   }
 
-  udpate(event) {
+  async udpate(event) {
+    var self = this;
+    var apiBaseUrl = "https://hpcompost.com/api/preferences";
+    
+    var payload ={
+      id: self.props.props.props.id,
+      location: {
+        "address": self.state.location.address,
+        "city": self.state.location.city,
+        "state": self.state.location.state,
+        "zip": self.state.location.zip
+      }
+    }
 
+    if (self.props.props.props.accountType == "Business Owner") {
+      await axios.patch(apiBaseUrl + '/businessOwnerInfo', payload).then(function(response) {
+        if (response.data.success == true) {
+          alert("Listing address updated successfully.")
+        }
+      }).catch(function(error) {
+        console.log(error)
+      });
+    } else if (self.props.props.props.accountType == "Homeowner") {
+      await axios.patch(apiBaseUrl + '/homeownerInfo', payload).then(function(response) {
+        if (response.data.success == true) {
+          alert("Listing address updated successfully.")
+        }
+      }).catch(function(error) {
+        console.log(error)
+      });
+    }
   }
 
   handleZipChange = (event) => {
