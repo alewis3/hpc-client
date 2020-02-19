@@ -4,7 +4,6 @@ import MuiExpansionPanel from '@material-ui/core/ExpansionPanel';
 import MuiExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import MuiExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
-//import theme from '../theme';
 const ExpansionPanel = withStyles({
   root: {
     border: '1px solid rgba(0, 0, 0, .125)',
@@ -61,8 +60,14 @@ export default function CustomizedExpansionPanels() {
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
           <Typography>
-            <p align="left">Animal manure from herbivores, cardboard rolls, cereal boxes,
-            brown paper bags, coffee grounds and filters, fruits and vegetables, hair and fur.</p>
+            <div align="left">
+              <li>Animal manure</li> 
+              <li>Cardboard</li> 
+              <li>Cereal boxes</li> 
+              <li>Coffee grounds and filters</li> 
+              <li>Egg shells</li> 
+              <li>Fruits and vegetables</li>
+            </div>
           </Typography>
         </ExpansionPanelDetails>
       </ExpansionPanel>
@@ -72,7 +77,14 @@ export default function CustomizedExpansionPanels() {
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
           <Typography>
-            <p align="left">Meat, fish, egg, poultry scraps, fats, grease, lard or oils.</p>
+            <div align="left">
+              <li>Meat of any kind</li> 
+              <li>Egg</li> 
+              <li>Fats or grease</li> 
+              <li>Bread</li> 
+              <li>Rice</li> 
+              <li>Plastic or styrofoam</li>
+            </div>
           </Typography>
         </ExpansionPanelDetails>
       </ExpansionPanel>
@@ -84,12 +96,11 @@ export default function CustomizedExpansionPanels() {
           <Typography>
             <p align="left">Start a garden, place your compost pile where animals won't bother it, cut leaves on any compostable items,
             and open your compost bin to your community.</p>
-            <p align="left"><a  href="https://www.amazon.com/100-Piece-Biodegradable-Compost-Bags-Eco-Friendly/dp/B072WKL14N/ref=asc_df_B072WKL14N/?tag=hyprod-20&linkCode=df0&hvadid=309748512677&hvpos=1o2&hvnetw=g&hvrand=12689167908056551662&hvpone=
-            &hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=9028279&hvtargid=pla-570918674861&psc=1">Biodegradable Compost Bags</a>
-            <br>
-            </br>
-            <a href="https://www.amazon.com/Best-Sellers-Home-Kitchen-Indoor-Compost-Bins/zgbs/home-garden/3744051">Compost Bins</a></p>
-
+            <div>
+              <a  href="https://www.amazon.com/100-Piece-Biodegradable-Compost-Bags-Eco-Friendly/dp/B072WKL14N/ref=asc_df_B072WKL14N/?tag=hyprod-20&linkCode=df0&hvadid=309748512677&hvpos=1o2&hvnetw=g&hvrand=12689167908056551662&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=9028279&hvtargid=pla-570918674861&psc=1">Biodegradable Compost Bags</a>
+              <br />
+              <a href="https://www.amazon.com/Best-Sellers-Home-Kitchen-Indoor-Compost-Bins/zgbs/home-garden/3744051">Compost Bins</a>
+            </div>
           </Typography>
         </ExpansionPanelDetails>
      </ExpansionPanel>
