@@ -45,7 +45,7 @@ export default function HostPreferences(props) {
           <Grid item xs={6}>
             <Paper className={classes.paper}>
               <h4>Block a User</h4>
-              <BlockUsers />
+              <BlockUsers props={props} />
             </Paper>
           </Grid>
           <Grid item xs={6}>
