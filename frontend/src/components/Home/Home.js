@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import './home.css';
 import LoginModal from '../LoginModal';
 import RegisterModal from '../RegisterModal';
+import ExpansionPanel from '../ExpansionPanel';
 
 class Home extends Component {
+
   render() {
     return (
       <div>
@@ -32,20 +34,12 @@ class Home extends Component {
         </section>
 
         <section className="location-section">
-          <section className="questions-section">
-            <h1>What to compost</h1>
-            <li>Animal Manure from herbivores</li>
-            <li>Cardboard rolls, cereal boxes, brown paper bags </li>
-            <li>Coffee grounds and filters</li>
-            <li>Fruits and vegetables</li>
-            <li>Hair and fur</li>
+          <h1> Composting tips and tricks </h1>
 
-            <h1>What not to compost</h1>
-            <li>Meat, fish, egg, or poultry scraps</li>
-            <li>Fats, grease, lard, or oils</li>
-            <li>Dairy Products</li>
-            <li>Coal or charcoal ash</li>
-            <li>Yard trimmings treated with pesticides</li>
+          <section className="questions-section">
+
+            <ExpansionPanel />
+
           </section>
 
           <footer className="content-footer">
