@@ -57,36 +57,34 @@ export default function CustomizedExpansionPanels() {
     <div>
       <ExpansionPanel square expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
         <ExpansionPanelSummary aria-controls="panel1d-content" id="panel1d-header">
-          <Typography>Examples of Compostabale Items</Typography>
+          <Typography>Examples of compostabale items</Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
           <Typography>
-            Animal manure from herbivores, cardboard rolls, cereal boxes,
-            brown paper bags, coffee grounds and filters, fruits and vegetables, hair and fur.
+            <p align="left">Animal manure from herbivores, cardboard rolls, cereal boxes,
+            brown paper bags, coffee grounds and filters, fruits and vegetables, hair and fur.</p>
           </Typography>
         </ExpansionPanelDetails>
       </ExpansionPanel>
       <ExpansionPanel square expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
         <ExpansionPanelSummary aria-controls="panel2d-content" id="panel2d-header">
-          <Typography>Examples of Non compostable Items</Typography>
+          <Typography>Examples of non-compostable items</Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
           <Typography>
-            Meat, fish, egg, poultry scraps, fats, grease, lard or oils.
+            <p align="left">Meat, fish, egg, poultry scraps, fats, grease, lard or oils.</p>
           </Typography>
         </ExpansionPanelDetails>
       </ExpansionPanel>
       <ExpansionPanel square expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
         <ExpansionPanelSummary aria-controls="panel3d-content" id="panel3d-header">
-          <Typography>Tips and Tricks for Composting </Typography>
+          <Typography>Suggestions and composting links </Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
           <Typography>
-            Start a garden, place your compost pile where animals won't bother it, cut leaves on any compostable items,
-            and open your compost bin to your community.
-            <br>
-            </br>
-            <p><a  href="https://www.amazon.com/100-Piece-Biodegradable-Compost-Bags-Eco-Friendly/dp/B072WKL14N/ref=asc_df_B072WKL14N/?tag=hyprod-20&linkCode=df0&hvadid=309748512677&hvpos=1o2&hvnetw=g&hvrand=12689167908056551662&hvpone=
+            <p align="left">Start a garden, place your compost pile where animals won't bother it, cut leaves on any compostable items,
+            and open your compost bin to your community.</p>
+            <p align="left"><a  href="https://www.amazon.com/100-Piece-Biodegradable-Compost-Bags-Eco-Friendly/dp/B072WKL14N/ref=asc_df_B072WKL14N/?tag=hyprod-20&linkCode=df0&hvadid=309748512677&hvpos=1o2&hvnetw=g&hvrand=12689167908056551662&hvpone=
             &hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=9028279&hvtargid=pla-570918674861&psc=1">Biodegradable Compost Bags</a>
             <br>
             </br>

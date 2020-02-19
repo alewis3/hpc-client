@@ -34,9 +34,12 @@ class Home extends Component {
         </section>
 
         <section className="location-section">
+          <h1> Composting tips and tricks </h1>
+
           <section className="questions-section">
+
             <ExpansionPanel />
-          
+
           </section>
 
           <footer className="content-footer">
