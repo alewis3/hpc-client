@@ -21,7 +21,6 @@ class UpdateAccountType extends Component {
 
     axios.get(apiBaseUrl + '/profile?id=' + this.props.props.props.id).then(function(response) {
       if (response.data.success == true) {
-        console.log('accountType: ', response.data.user.accountType)
         self.setState({ accountType: response.data.user.accountType })
       }
     }).catch(function(error) {
@@ -33,7 +32,20 @@ class UpdateAccountType extends Component {
     var self = this;
     var apiBaseUrl = "https://hpcompost.com/api/preferences";
 
-    
+    var payload = {
+      id: this.props.props.props.id,
+      accountType: self.state.accountType
+    }
+
+    console.log(payload);
+
+    await axios.patch(apiBaseUrl + '/profile', payload).then(function(response) {
+      if (response.data.success == true) {
+        alert('Account type successfully updated.')
+      }
+    }).catch(function(error) {
+      console.log(error);
+    })
   }
 
   render() {
@@ -44,15 +56,15 @@ class UpdateAccountType extends Component {
             aria-label="accountType" 
             name="customized-radios" 
             onChange={
-              (newValue) => {this.setState({ accountType: newValue });
+              (event) => {this.setState({ accountType: event.target.value });
               this.update()
             }}
             value={this.state.accountType}
             style={{display: 'flex', justifyContent: 'center', flexDirection: 'row'}}
-            >
-              <FormControlLabel value="Contributor" control={<RadioButtons />} label="Contributor" />
-              <FormControlLabel value="Homeowner" control={<RadioButtons />} label="Homeowner" />
-              <FormControlLabel value="Business Owner" control={<RadioButtons />} label="Businessowner" />
+          >
+            <FormControlLabel value="Contributor" control={<RadioButtons />} label="Contributor" />
+            <FormControlLabel value="Homeowner" control={<RadioButtons />} label="Homeowner" />
+            <FormControlLabel value="Business Owner" control={<RadioButtons />} label="Business Owner" />
           </RadioGroup>
         </FormControl>
       </ThemeProvider>
