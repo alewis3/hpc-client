@@ -13,8 +13,22 @@ class BlockUsers extends Component {
     }
   }
 
-  blockUser() {
+  async blockUser() {
+    var self = this;
+    var apiBaseUrl = "https://hpcompost.com/api/users";
 
+    var payload = {
+      "id": self.props.props.props.id,
+      "email": this.state.email
+    }
+
+    await axios.patch(apiBaseUrl + '/blockUser', payload).then(function(response) {
+      if (response.data.success == true) {
+        alert("User blocked");
+      }
+    }).catch(function(error) {
+      console.log(error);
+    });
   }
 
   render() {
@@ -26,7 +40,7 @@ class BlockUsers extends Component {
             label="User Email"
             variant="outlined"
             style={style}
-            onChange={(event) => this.setState({ currentPw: event.target.value })}
+            onChange={(event) => this.setState({ email: event.target.value })}
           />
           <br />
           <Button
