@@ -11,6 +11,8 @@ import HostPreferences from './Preferences/HostPreferences';
 import MapContainer from './MapContainer';
 import ContributorPreferences from './Preferences/ContributorPreferences';
 import Messages from './Messaging/Messages';
+import { Button } from '@material-ui/core';
+import Toolbar from '@material-ui/core/Toolbar';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -40,6 +42,10 @@ function a11yProps(index) {
     id: `simple-tab-${index}`,
     'aria-controls': `simple-tabpanel-${index}`,
   };
+}
+
+function logout() {
+  window.location = "hpcompost.com"
 }
 
 export default function SimpleTabs(props) {
@@ -81,20 +87,28 @@ export default function SimpleTabs(props) {
       <div>
         <ThemeProvider theme={theme}>
           <AppBar position="static">
-            <Tabs value={value} 
-                  onChange={handleChange} 
-                  aria-label="simple tabs example" 
-                  centered
-            >
-              <Tab label="Preferences" {...a11yProps(0)} />
-              <Tab label="Messages" {...a11yProps(1)} />
-            </Tabs>
+            <Toolbar>
+              <Tabs value={value} 
+                    onChange={handleChange} 
+                    aria-label="simple tabs example" 
+                    centered
+                    style={{flexGrow: 3}}
+              >
+                <Tab label="Messages" {...a11yProps(0)} />
+                <Tab label="Preferences" {...a11yProps(1)} />
+              </Tabs>
+              <Button
+                onClick={logout}
+                size='small'
+                style={{backgroundColor: '#ffd740'}}
+              >Logout</Button>
+            </Toolbar>
           </AppBar>
           <TabPanel value={value} index={0}>
-            <HostPreferences props={props.location.state} />
+            <Messages props={props} />
           </TabPanel>
           <TabPanel value={value} index={1}>
-            <Messages props={props} />
+            <HostPreferences props={props.location.state} />
           </TabPanel>
         </ThemeProvider>
       </div>
