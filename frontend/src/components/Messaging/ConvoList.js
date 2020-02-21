@@ -13,13 +13,17 @@ class ConvoList extends Component {
     }
   }
 
+  componentDidMount() {
+
+  }
+
   renderConvos() {
     return this.state.conversations.map((name, i) => {
       return (
         <div key={i}>
           <Divider />
           <List component="nav">
-            <ListItem 
+            <ListItem
               button
               onClick={this.openConvo}
             >
