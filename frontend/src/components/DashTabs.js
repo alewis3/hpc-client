@@ -60,18 +60,26 @@ export default function SimpleTabs(props) {
       <div>
         <ThemeProvider theme={theme}>
           <AppBar position="static">
-            <Tabs value={value} 
-                  onChange={handleChange} 
-                  aria-label="simple tabs example" 
-                  centered
-            >
-              <Tab label="Map" {...a11yProps(2)} />
-              <Tab label="Preferences" {...a11yProps(1)} />
-              <Tab label="Messages" {...a11yProps(2)} />
-            </Tabs>
+            <Toolbar>
+              <Tabs value={value}
+                onChange={handleChange}
+                aria-label="simple tabs example"
+                centered
+                style={{ flexGrow: 3 }}
+              >
+                <Tab label="Map" {...a11yProps(2)} />
+                <Tab label="Preferences" {...a11yProps(1)} />
+                <Tab label="Messages" {...a11yProps(2)} />
+              </Tabs>
+              <Button
+                onClick={logout}
+                size='small'
+                style={{ backgroundColor: '#ffd740' }}
+              >Logout</Button>
+            </Toolbar>
           </AppBar>
           <TabPanel value={value} index={0}>
-            <MapContainer props={props.location.state.id}/>
+            <MapContainer props={props.location.state.id} />
           </TabPanel>
           <TabPanel value={value} index={1}>
             <ContributorPreferences props={props.location.state.id} />
@@ -88,11 +96,11 @@ export default function SimpleTabs(props) {
         <ThemeProvider theme={theme}>
           <AppBar position="static">
             <Toolbar>
-              <Tabs value={value} 
-                    onChange={handleChange} 
-                    aria-label="simple tabs example" 
-                    centered
-                    style={{flexGrow: 3}}
+              <Tabs value={value}
+                onChange={handleChange}
+                aria-label="simple tabs example"
+                centered
+                style={{ flexGrow: 3 }}
               >
                 <Tab label="Messages" {...a11yProps(0)} />
                 <Tab label="Preferences" {...a11yProps(1)} />
@@ -100,7 +108,7 @@ export default function SimpleTabs(props) {
               <Button
                 onClick={logout}
                 size='small'
-                style={{backgroundColor: '#ffd740'}}
+                style={{ backgroundColor: '#ffd740' }}
               >Logout</Button>
             </Toolbar>
           </AppBar>
