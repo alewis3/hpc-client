@@ -10,6 +10,7 @@ import theme from '../theme';
 import HostPreferences from './Preferences/HostPreferences';
 import MapContainer from './MapContainer';
 import ContributorPreferences from './Preferences/ContributorPreferences';
+import Messages from './Messaging/Messages';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -48,7 +49,7 @@ export default function SimpleTabs(props) {
     setValue(newValue);
   };
 
-  if(props.location.state.accountType == 'Contributor') {
+  if (props.location.state.accountType == 'Contributor') {
     return (
       <div>
         <ThemeProvider theme={theme}>
@@ -70,7 +71,7 @@ export default function SimpleTabs(props) {
             <ContributorPreferences props={props.location.state.id} />
           </TabPanel>
           <TabPanel value={value} index={2}>
-            Messages
+            <Messages props={props} />
           </TabPanel>
         </ThemeProvider>
       </div>
@@ -93,7 +94,7 @@ export default function SimpleTabs(props) {
             <HostPreferences props={props.location.state} />
           </TabPanel>
           <TabPanel value={value} index={1}>
-            Messages
+            <Messages props={props} />
           </TabPanel>
         </ThemeProvider>
       </div>

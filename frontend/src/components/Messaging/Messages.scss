@@ -1,0 +1,17 @@
+.parent {
+  display: flex;
+  flex-direction: row;
+  align-content: stretch;
+
+  .list {
+    flex-grow: 1;
+    flex-direction: column;
+    border-right: 5px solid red;
+    align-items: stretch;
+  }
+
+  .convo {
+    flex-grow: 4;
+    flex-direction: column;
+  }
+}
