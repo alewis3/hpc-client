@@ -12,8 +12,6 @@ class ResetPassword extends Component {
       currentPw: '',
       newPw: ''
     }
-
-    console.log(props);
   }
 
   async reset() {

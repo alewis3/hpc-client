@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import List from './List';
+import List from './ConvoList';
 import Conversation from './Conversation';
 import './Messages.scss';
 

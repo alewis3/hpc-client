@@ -5,10 +5,14 @@ class Conversation extends Component {
     super(props);
   }
 
+  renderMessages() {
+
+  }
+
   render() {
     return(
       <div>
-        world.
+        {this.renderMessages()}
       </div>
     )
   }
