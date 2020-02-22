@@ -56,17 +56,17 @@ class Blacklist extends Component {
     var apiBaseUrl = "https://hpcompost.com/api/users";
 
     var payload = {
-      "unblockingUser" : self.props.props.props.id,
-      "unblockedUser" : self.state.blockedUsers[i]._id
+      "unblockingUser": self.props.props.props.id,
+      "unblockedUser": self.state.blockedUsers[i]._id
     }
 
-    await axios.patch(apiBaseUrl + '/unblockUser', payload).then(function(response) {
-      if(response.data.success) {
+    await axios.patch(apiBaseUrl + '/unblockUser', payload).then(function (response) {
+      if (response.data.success) {
         var people = self.state.blockedUsers;
         people.splice(i, 1);
         self.setState({ blockedUsers: people });
       }
-    }).catch(function(error) {
+    }).catch(function (error) {
       console.log(error)
     })
   }
@@ -94,6 +94,12 @@ const style = {
   demo: {
     backgroundColor: theme.palette.background.paper,
   },
+  alert: {
+    width: '100%',
+    '& > * + *': {
+      marginTop: theme.spacing(2),
+    },
+  }
 };
 
 export default Blacklist;
