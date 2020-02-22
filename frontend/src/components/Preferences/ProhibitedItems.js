@@ -11,7 +11,6 @@ class ProhibitedItems extends Component {
     this.state = {
       prohibitedItems: ''
     }
-    console.log("prohibited props: ", props)
   }
 
   componentDidMount() {

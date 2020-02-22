@@ -85,7 +85,7 @@ export default function SimpleTabs(props) {
             <ContributorPreferences props={props.location.state.id} />
           </TabPanel>
           <TabPanel value={value} index={2}>
-            <Messages props={props} />
+            <Messages props={props.location.state} />
           </TabPanel>
         </ThemeProvider>
       </div>
@@ -113,7 +113,7 @@ export default function SimpleTabs(props) {
             </Toolbar>
           </AppBar>
           <TabPanel value={value} index={0}>
-            <Messages props={props} />
+            <Messages props={props.location.state} />
           </TabPanel>
           <TabPanel value={value} index={1}>
             <HostPreferences props={props.location.state} />

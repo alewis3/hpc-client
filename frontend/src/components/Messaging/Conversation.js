@@ -5,8 +5,12 @@ class Conversation extends Component {
     super(props);
   }
 
-  renderMessages() {
+  componentDidMount() {
+    
+  }
 
+  renderMessages() {
+    
   }
 
   render() {

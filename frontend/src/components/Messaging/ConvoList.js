@@ -21,7 +21,6 @@ class ConvoList extends Component {
     return this.state.conversations.map((name, i) => {
       return (
         <div key={i}>
-          <Divider />
           <List component="nav">
             <ListItem
               button
@@ -36,14 +35,14 @@ class ConvoList extends Component {
     })
   }
 
-  openConvo() {
-    return <Conversation props={this.props} />
+  openConvo(props) {
+    return <Conversation props={props} />
   }
 
   render() {
     return (
       <div>
-        {this.renderConvos()}
+        {this.renderConvos(this.props)}
       </div>
     )
   }
