@@ -51,7 +51,7 @@ export default function HostPreferences(props) {
           <Grid item xs={6}>
             <Paper className={classes.paper}>
               <h4>Blacklist</h4>
-              <Blacklist />
+              <Blacklist props={props} />
             </Paper>
           </Grid>
           <Grid item xs={12}>

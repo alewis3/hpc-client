@@ -13,47 +13,69 @@ class Blacklist extends Component {
     super(props);
     this.state = {
       dense: false,
-      secondary: false
+      secondary: false,
+      blockedUsers: []
     }
   }
 
   componentDidMount() {
     var self = this;
-    var apiBaseUrl = "https://hpcompost.com/api";
+    var apiBaseUrl = "https://hpcompost.com/api/preferences";
+
+    axios.get(apiBaseUrl + '/blockedUsers?id=' + self.props.props.props.id).then(function (response) {
+      if (response.data.success) {
+        console.log(response)
+        self.setState({ blockedUsers: response.data.blockedUsers })
+      }
+    }).catch(function (error) {
+      console.log(error)
+    })
   }
 
-  generate(element) {
-    // update array to response from componentDidMount
-    return [0, 1, 2].map(value =>
-      React.cloneElement(element, {
-        key: value,
-      }),
-    );
+  generate() {
+    return this.state.blockedUsers.map((user, i) => {
+      return (
+        <ListItem key={i}>
+          <ListItemText
+            primary={user.name.first.concat(' ', user.name.last)}
+          />
+          <ListItemSecondaryAction
+            onClick={() => this.removeUser(i)}
+          >
+            <IconButton edge="end" aria-label="delete">
+              <DeleteIcon />
+            </IconButton>
+          </ListItemSecondaryAction>
+        </ListItem>
+      )
+    })
   }
 
-  // will likely need to recall generate to update list
-  async removeUser(event) {
-    console.log("yoyoyo")
+  async removeUser(i) {
+    var self = this;
+    var apiBaseUrl = "https://hpcompost.com/api/users";
+
+    var payload = {
+      "unblockingUser" : self.props.props.props.id,
+      "unblockedUser" : self.state.blockedUsers[i]._id
+    }
+
+    await axios.patch(apiBaseUrl + '/unblockUser', payload).then(function(response) {
+      if(response.data.success) {
+        var people = self.state.blockedUsers;
+        people.splice(i, 1);
+        self.setState({ blockedUsers: people });
+      }
+    }).catch(function(error) {
+      console.log(error)
+    })
   }
 
   render() {
     return (
       <div className={style.demo}>
         <List dense={this.state.dense}>
-          {this.generate(
-            <ListItem>
-              <ListItemText
-                primary="BAD USER"
-              />
-              <ListItemSecondaryAction
-                onClick={(event) => this.removeUser(event)}
-              >
-                <IconButton edge="end" aria-label="delete">
-                  <DeleteIcon />
-                </IconButton>
-              </ListItemSecondaryAction>
-            </ListItem>
-          )}
+          {this.generate()}
         </List>
       </div>
     )
