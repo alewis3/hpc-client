@@ -4,6 +4,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Conversation from './Conversation'
+import axios from 'axios';
 
 class ConvoList extends Component {
   constructor(props) {
@@ -14,7 +15,17 @@ class ConvoList extends Component {
   }
 
   componentDidMount() {
+    var self = this;
+    var apiBaseUrl = "https://hpcompost.com/api/messages";
 
+    console.log(self.props.props.props.id)
+
+    axios.get(apiBaseUrl + '/conversations?id=' + self.props.props.props.id).then(function(response) {
+      if (response.data.success) {
+        console.log(response)
+        self.setState({ conversations: response.data.conversations })
+      }
+    })
   }
 
   renderConvos() {
@@ -26,7 +37,7 @@ class ConvoList extends Component {
               button
               onClick={this.openConvo}
             >
-              <ListItemText primary={name} />
+              <ListItemText primary={this.state.conversations[i].name.first.concat(' ', this.state.conversations[i].name.last)} />
             </ListItem>
           </List>
           <Divider />
