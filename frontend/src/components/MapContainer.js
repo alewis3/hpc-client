@@ -22,7 +22,7 @@ class MapContainer extends Component {
     var apiBaseUrl = "https://hpcompost.com/api/users/";
 
     await axios.get(apiBaseUrl + "hosts?id=" + this.props.props, { headers: { 'Content-Type': 'application/json' } }).then(function (response) {
-      if (response.data.success == true) {
+      if (response.data.success) {
         self.setState({ homeowners: response.data.homeowners, businessOwners: response.data.businessOwners })
       }
     }).catch(function (error) {

@@ -23,7 +23,7 @@ class ListingAddress extends Component {
     var apiBaseUrl = "https://hpcompost.com/api/preferences";
 
     axios.get(apiBaseUrl + '/profile?id=' + self.props.props.props.id).then(function(response) {
-      if (response.data.success == true) {
+      if (response.data.success) {
         self.setState({
           location: {
             address: response.data.user.location.address,
@@ -54,7 +54,7 @@ class ListingAddress extends Component {
 
     if (self.props.props.props.accountType == "Business Owner") {
       await axios.patch(apiBaseUrl + '/businessOwnerInfo', payload).then(function(response) {
-        if (response.data.success == true) {
+        if (response.data.success) {
           alert("Listing address updated successfully.")
         }
       }).catch(function(error) {
@@ -62,7 +62,7 @@ class ListingAddress extends Component {
       });
     } else if (self.props.props.props.accountType == "Homeowner") {
       await axios.patch(apiBaseUrl + '/homeownerInfo', payload).then(function(response) {
-        if (response.data.success == true) {
+        if (response.data.success) {
           alert("Listing address updated successfully.")
         }
       }).catch(function(error) {

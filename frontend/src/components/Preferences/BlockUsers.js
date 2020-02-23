@@ -23,7 +23,7 @@ class BlockUsers extends Component {
     }
 
     await axios.patch(apiBaseUrl + '/blockUser', payload).then(function(response) {
-      if (response.data.success == true) {
+      if (response.data.success) {
         alert("User blocked");
       }
     }).catch(function(error) {

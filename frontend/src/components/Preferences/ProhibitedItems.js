@@ -18,7 +18,7 @@ class ProhibitedItems extends Component {
     var apiBaseUrl = "https://hpcompost.com/api/preferences";
 
     axios.get(apiBaseUrl + '/prohibitedItems?id=' + this.props.props.props.id).then(function (response) {
-      if (response.data.success == true) {
+      if (response.data.success) {
         self.setState({ prohibitedItems: response.data.prohibitedItems })
       } 
     }).catch(function (error) {
@@ -38,7 +38,7 @@ class ProhibitedItems extends Component {
     console.log("payload: ", payload);
 
     await axios.post(apiBaseUrl + '/prohibitedItems', payload).then(function (response) {
-      if (response.data.success == true) {
+      if (response.data.success) {
         alert("Preferences Saved")
       } else {
         alert("Failed to save. Please try again later.")
