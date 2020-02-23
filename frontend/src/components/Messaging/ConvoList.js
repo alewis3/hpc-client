@@ -9,7 +9,7 @@ class ConvoList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      conversations: ["Evangeline Mavrommati", "Amanda Lewis", "Fairen Sutton"]
+      conversations: []
     }
   }
 
