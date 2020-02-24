@@ -12,6 +12,16 @@
   .convo {
     flex-grow:3;
     flex-direction: column;
-    align-items: stretch;
+    padding: 25px 25px 25px 25px;
+    
+    &-guest {
+      display: flex;
+      justify-content: flex-start;
+    }
+
+    &-sending {
+      display: flex;
+      justify-content: flex-end;
+    }
   }
 }
