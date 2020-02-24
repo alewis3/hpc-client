@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import './Messages.scss';
 import axios from 'axios';
-import { Divider } from '@material-ui/core';
+import { Divider, Button } from '@material-ui/core';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import TextField from '@material-ui/core/TextField';
 
 class Messages extends Component {
   constructor(props) {
@@ -12,7 +13,8 @@ class Messages extends Component {
     this.state = {
       conversations: [],
       messages: [],
-      talkingTo: ''
+      talkingTo: '',
+      newMessage: ''
     }
   }
 
@@ -54,7 +56,7 @@ class Messages extends Component {
   async openConvo(id) {
     var self = this;
     var apiBaseUrl = "https://hpcompost.com/api/messages";
-    
+
     await axios.get(apiBaseUrl + '/conversation?loggedInId=' + this.props.props.id + '&otherId=' + id).then(response => {
       if (response.data.success) {
         self.setState({ messages: response.data.messages })
@@ -92,6 +94,26 @@ class Messages extends Component {
     }
   }
 
+  async sendMessage() {
+    var self = this;
+    var apiBaseUrl = "https://hpcompost.com/api";
+
+    var payload = {
+      "senderId": self.props.props.id,
+      "receiverId": self.state.talkingTo,
+      "message": self.state.newMessage
+    }
+
+    await axios.post(apiBaseUrl + '/messages', payload).then(response => {
+      if (response.data.success) {
+        // this doesn't work yet
+        self.forceUpdate()
+      }
+    }).catch(error => {
+      console.log(error);
+    });
+  }
+
   render() {
     return (
       <div className="parent">
@@ -104,6 +126,19 @@ class Messages extends Component {
           </div>
           <div className="convo-sending">
             {this.renderSenderMessages()}
+          </div>
+          <div className="convo-text">
+            <TextField
+              fullWidth
+              multiline
+              onChange={(event) => { this.setState({ newMessage: event.target.value }) }}
+            />
+            <Button
+              style={{backgroundColor: 'rgb(255, 215, 64)'}}
+              onClick={() => this.sendMessage() }
+            >
+              Send
+            </Button>
           </div>
         </div>
       </div>
