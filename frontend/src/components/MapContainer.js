@@ -103,10 +103,10 @@ class MapContainer extends Component {
         >
           <div>
             <h3>{this.state.selectedPlace.title}</h3>
-            <h4>{ this.state.address }</h4>
-            <span>Allowed Items: { this.state.allowedItems }</span>
+            <h4>{this.state.address}</h4>
+            <span>Allowed Items: {this.state.allowedItems}</span>
             <br />
-            <span>Prohibited Items: { this.state.prohibitedItems }</span>
+            <span>Prohibited Items: {this.state.prohibitedItems}</span>
           </div>
         </InfoWindow>
       </Map>
@@ -120,6 +120,6 @@ export default GoogleApiWrapper({
 
 // add style here to mimic 'container'
 const mapStyles = {
-  width: '100%',
-  height: '100vh',
+  width: '95%',
+  height: '95vh',
 };
