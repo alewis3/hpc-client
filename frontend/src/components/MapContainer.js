@@ -134,6 +134,6 @@ export default GoogleApiWrapper({
 }) (MapContainer);
 
 const mapStyles = {
-  width: '100%',
-  height: '100vh',
+  width: '95%',
+  height: '95vh',
 };

@@ -89,7 +89,7 @@ export default function SimpleTabs(props) {
             <MapContainer props={props.location.state} callback={callbackFunction} />
           </TabPanel>
           <TabPanel value={value} index={1}>
-            <ContributorPreferences props={props.location.state.id} />
+            <ContributorPreferences props={props.location.state} />
           </TabPanel>
           <TabPanel value={value} index={2}>
             <Messages props={newProps} />

@@ -18,12 +18,12 @@ class BlockUsers extends Component {
     var apiBaseUrl = "https://hpcompost.com/api/users";
 
     var payload = {
-      "id": self.props.props.props.id,
-      "email": this.state.email
+      "blockingUserId": self.props.props.props.id,
+      "blockedUserEmail": self.state.email
     }
 
-    await axios.patch(apiBaseUrl + '/blockUser', payload).then(function(response) {
-      if (response.data.success) {
+    await axios.patch(apiBaseUrl + '/blockUserEmail', payload).then(function(response) {
+      if (response.data.success == true) {
         alert("User blocked");
       }
     }).catch(function(error) {
