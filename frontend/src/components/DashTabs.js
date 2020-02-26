@@ -75,8 +75,8 @@ export default function SimpleTabs(props) {
                 style={{ flexGrow: 3 }}
               >
                 <Tab label="Map" {...a11yProps(2)} />
-                <Tab label="Preferences" {...a11yProps(1)} />
-                <Tab label="Messages" {...a11yProps(2)} />
+                <Tab label="Messages" {...a11yProps(1)} />
+                <Tab label="Preferences" {...a11yProps(2)} />
               </Tabs>
               <Button
                 onClick={logout}
@@ -89,10 +89,10 @@ export default function SimpleTabs(props) {
             <MapContainer props={props.location.state} callback={callbackFunction} />
           </TabPanel>
           <TabPanel value={value} index={1}>
-            <ContributorPreferences props={props.location.state} />
+            <Messages props={newProps} />
           </TabPanel>
           <TabPanel value={value} index={2}>
-            <Messages props={newProps} />
+            <ContributorPreferences props={props.location.state} />
           </TabPanel>
         </ThemeProvider>
       </div>
