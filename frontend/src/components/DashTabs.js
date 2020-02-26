@@ -58,7 +58,7 @@ export default function SimpleTabs(props) {
 
   const callbackFunction = (data) => {
     setReceivingHost(data);
-    setValue(2);
+    setValue(1);
   }
 
   if (props.location.state.accountType == 'Contributor') {

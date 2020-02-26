@@ -47,17 +47,19 @@ class Messages extends Component {
     var apiBaseUrl = "https://hpcompost.com/api/preferences";
 
     await axios.get(apiBaseUrl + '/profile?id=' + self.props.props.sendMessageTo).then(response => {
-      var convo = {
-        email: response.data.user.email,
-        name: {
-          first: response.data.user.name.first,
-          last: response.data.user.name.last
-        },
-        id: self.props.props.sendMessageTo
+      if (response.data.success) {
+        var convo = {
+          email: response.data.user.email,
+          name: {
+            first: response.data.user.name.first,
+            last: response.data.user.name.last
+          },
+          id: self.props.props.sendMessageTo
+        }
+        var joined = this.state.conversations.concat(convo);
+        self.setState({ conversations: joined })
+        self.openConvo(self.props.props.sendMessageTo)
       }
-      var joined = this.state.conversations.concat(convo);
-      self.setState({ conversations: joined })
-      self.openConvo(self.props.props.sendMessageTo)
     }).catch(error => {
       console.log(error)
     });
@@ -136,7 +138,7 @@ class Messages extends Component {
     await axios.post(apiBaseUrl + '/messages', payload).then(response => {
       if (response.data.success) {
         self.setState({ newMessage: '' })
-        
+
         // this doesn't work yet
         self.forceUpdate()
       }
