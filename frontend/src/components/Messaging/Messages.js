@@ -17,7 +17,6 @@ class Messages extends Component {
       talkingTo: '',
       newMessage: ''
     }
-    console.log(props)
   }
 
   async componentDidMount() {
@@ -48,7 +47,6 @@ class Messages extends Component {
     var apiBaseUrl = "https://hpcompost.com/api/preferences";
 
     await axios.get(apiBaseUrl + '/profile?id=' + self.props.props.sendMessageTo).then(response => {
-      console.log(response);
       var convo = {
         email: response.data.user.email,
         name: {
@@ -57,7 +55,9 @@ class Messages extends Component {
         },
         id: self.props.props.sendMessageTo
       }
-      // self.refreshConvo()
+      var joined = this.state.conversations.concat(convo);
+      self.setState({ conversations: joined })
+      self.openConvo(self.props.props.sendMessageTo)
     }).catch(error => {
       console.log(error)
     });
@@ -122,6 +122,7 @@ class Messages extends Component {
     }
   }
 
+  // doesn't work correctly
   async sendMessage(event) {
     var self = this;
     var apiBaseUrl = "https://hpcompost.com/api";
