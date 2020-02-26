@@ -1,22 +1,35 @@
 import React from 'react';
 import { ThemeProvider } from '@material-ui/core/styles';
-import { AppBar, Button } from '@material-ui/core';
-import theme from '../theme';
+import theme from '../../theme';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import AllowedItems from './AllowedItems';
 import ProhibitedItems from './ProhibitedItems'
 import ResetPassword from './ResetPassword';
+import BlockUsers from './BlockUsers';
+import Blacklist from './Blacklist';
+import ListingAddress from './ListingAddress';
+import ToggleListing from './ToggleListing';
+import UpdateAccountType from './UpdateAccountType';
 
 export default function HostPreferences(props) {
   const classes = useStyles();
-  console.log("host preferences props: ", props)
-  
+
   return (
     <ThemeProvider theme={theme}>
       <div className={classes.root}>
+        <h1 style={{fontFamily: 'arial, sans-serif'}}>Welcome back to HPC!</h1>
+        <ToggleListing props={props} />
+        <h4>Account Type</h4>
+        <UpdateAccountType props={props} />
         <Grid container spacing={3}>
+          <Grid item xs={12}>
+            <Paper className={classes.paper}>
+              <h4>Listing Address</h4>
+              <ListingAddress props={props} />
+            </Paper>
+          </Grid>
           <Grid item xs={6}>
             <Paper className={classes.paper}>
               <h4>Prohibited Items</h4>
@@ -27,6 +40,18 @@ export default function HostPreferences(props) {
             <Paper className={classes.paper}>
               <h4>Allowed Items</h4>
               <AllowedItems props={props} />
+            </Paper>
+          </Grid>
+          <Grid item xs={6}>
+            <Paper className={classes.paper}>
+              <h4>Block a User</h4>
+              <BlockUsers props={props} />
+            </Paper>
+          </Grid>
+          <Grid item xs={6}>
+            <Paper className={classes.paper}>
+              <h4>Blacklist</h4>
+              <Blacklist props={props} />
             </Paper>
           </Grid>
           <Grid item xs={12}>

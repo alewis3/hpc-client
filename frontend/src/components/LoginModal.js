@@ -24,8 +24,6 @@ class LoginModal extends Component {
     }
   }
 
-  // loginButton will call api with users email and pw
-  // will recieve code and log appropriate response
   async loginButton(event) {
     var self = this;
     var apiBaseUrl = "https://hpcompost.com/api/users";
@@ -49,8 +47,8 @@ class LoginModal extends Component {
     await axios.post(apiBaseUrl + '/login', payload, { headers: { 'Content-Type': 'application/json' } }).then(function (response) {
       if (response.data.loginStatus == true && response.data.accountType == "Contributor") {
         self.setState({ id: response.data.id, accountType: response.data.accountType })
-      } else if (response.data.loginStatus == true && response.data.accountType == "Homeowner" || response.data.accountType == "Business Owner") {
-        self.setState({ id: response.data.id });
+      } else if (response.data.loginStatus == true && (response.data.accountType == "Homeowner" || response.data.accountType == "Business Owner")) {
+        self.setState({ id: response.data.id, accountType: response.data.accountType })
       } else {
         alert('invalid creds')
       }
@@ -61,23 +59,19 @@ class LoginModal extends Component {
 
   render() {
     if (this.state.id !== '' && this.state.accountType !== "Contributor") {
-      console.log("id: ", this.state.id)
-      console.log("accountType", this.state.accountType)
       return (
         <Redirect
           to={{
             pathname: "/dashboard",
-            state: { id: this.state.id }
+            state: { id: this.state.id, accountType: this.state.accountType }
           }}
         />
       )
     } else if (this.state.id !== '' && this.state.accountType == "Contributor") {
-      console.log("id: ", this.state.id)
-      console.log("accountType", this.state.accountType)
       return (
         <Redirect
           to={{
-            pathname: "/map",
+            pathname: "/dashboard",
             state: { id: this.state.id, accountType: this.state.accountType }
           }}
         />

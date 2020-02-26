@@ -3,7 +3,7 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import Button from "@material-ui/core/Button";
 import TextField from '@material-ui/core/TextField';
 import axios from 'axios';
-import theme from '../theme';
+import theme from '../../theme';
 
 class ProhibitedItems extends Component {
   constructor(props) {
@@ -18,9 +18,8 @@ class ProhibitedItems extends Component {
     var self = this;
     var apiBaseUrl = "https://hpcompost.com/api/preferences";
 
-    axios.get(apiBaseUrl + '/prohibitedItems?id=' + this.props.props.props).then(function (response) {
+    axios.get(apiBaseUrl + '/prohibitedItems?id=' + this.props.props.props.id).then(function (response) {
       if (response.data.success == true) {
-        console.log('response', response)
         self.setState({ prohibitedItems: response.data.prohibitedItems })
       } 
     }).catch(function (error) {
@@ -33,7 +32,7 @@ class ProhibitedItems extends Component {
     var apiBaseUrl = "https://hpcompost.com/api/preferences";
 
     var payload = {
-      "id": this.props.props.props,
+      "id": this.props.props.props.id,
       "prohibitedItems": this.state.prohibitedItems
     }
 

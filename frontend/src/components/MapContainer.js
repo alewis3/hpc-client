@@ -21,7 +21,7 @@ class MapContainer extends Component {
     var self = this;
     var apiBaseUrl = "https://hpcompost.com/api/users/";
 
-    await axios.get(apiBaseUrl + "hosts?id=" + this.props.location.state.id, { headers: { 'Content-Type': 'application/json' } }).then(function (response) {
+    await axios.get(apiBaseUrl + "hosts?id=" + this.props.props, { headers: { 'Content-Type': 'application/json' } }).then(function (response) {
       if (response.data.success == true) {
         self.setState({ homeowners: response.data.homeowners, businessOwners: response.data.businessOwners })
       }
@@ -103,10 +103,10 @@ class MapContainer extends Component {
         >
           <div>
             <h3>{this.state.selectedPlace.title}</h3>
-            <h4>{ this.state.address }</h4>
-            <span>Allowed Items: { this.state.allowedItems }</span>
+            <h4>{this.state.address}</h4>
+            <span>Allowed Items: {this.state.allowedItems}</span>
             <br />
-            <span>Prohibited Items: { this.state.prohibitedItems }</span>
+            <span>Prohibited Items: {this.state.prohibitedItems}</span>
           </div>
         </InfoWindow>
       </Map>
@@ -120,6 +120,6 @@ export default GoogleApiWrapper({
 
 // add style here to mimic 'container'
 const mapStyles = {
-  width: '100%',
-  height: '100vh',
+  width: '95%',
+  height: '95vh',
 };
