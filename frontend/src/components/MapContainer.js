@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
 import axios from 'axios';
+import CustomInfoWindow from './CustomInfoWindow';
+import ContributorPreferences from './Preferences/ContributorPreferences';
 
 class MapContainer extends Component {
   constructor(props) {
@@ -21,7 +23,7 @@ class MapContainer extends Component {
     var self = this;
     var apiBaseUrl = "https://hpcompost.com/api/users/";
 
-    await axios.get(apiBaseUrl + "hosts?id=" + this.props.props, { headers: { 'Content-Type': 'application/json' } }).then(function (response) {
+    await axios.get(apiBaseUrl + "hosts?id=" + this.props.props.id, { headers: { 'Content-Type': 'application/json' } }).then(function (response) {
       if (response.data.success) {
         self.setState({ homeowners: response.data.homeowners, businessOwners: response.data.businessOwners })
       }
@@ -31,7 +33,6 @@ class MapContainer extends Component {
   }
 
   onMarkerClick = (props, marker, e) => {
-    console.log(props)
     var address = props.options.location.address.concat(' ', props.options.location.city, ' ', props.options.location.state, ' ', props.options.location.zip.toString())
     this.setState({
       selectedPlace: props,
@@ -63,7 +64,8 @@ class MapContainer extends Component {
         options={{
           allowedItems: homeowner.allowedItems,
           prohibitedItems: homeowner.prohibitedItems,
-          location: homeowner.location
+          location: homeowner.location,
+          id: homeowner._id
         }}
       />
     })
@@ -80,10 +82,15 @@ class MapContainer extends Component {
         options={{
           allowedItems: businessOwner.allowedItems,
           prohibitedItems: businessOwner.prohibitedItems,
-          location: businessOwner.location
+          location: businessOwner.location,
+          id: businessOwner._id
         }}
       />
     })
+  }
+
+  message() {
+    this.props.callback(this.state.selectedPlace.options.id)
   }
 
   render() {
@@ -96,19 +103,27 @@ class MapContainer extends Component {
       >
         {this.renderHomeownerMarkers()}
         {this.renderBusinessOwnerMarkers()}
-        <InfoWindow
+        <CustomInfoWindow
           marker={this.state.activeMarker}
           visible={this.state.showingInfoWindow}
           onClose={this.onClose}
         >
           <div>
             <h3>{this.state.selectedPlace.title}</h3>
-            <h4>{ this.state.address }</h4>
-            <span>Allowed Items: { this.state.allowedItems }</span>
+            <h4>{this.state.address}</h4>
+            <span>Allowed Items: {this.state.allowedItems}</span>
             <br />
-            <span>Prohibited Items: { this.state.prohibitedItems }</span>
+            <span>Prohibited Items: {this.state.prohibitedItems}</span>
+            <br />
+            <br />
+            <button
+              type="button"
+              onClick={this.message.bind(this, this.state.selectedPlace)}
+            >
+              Message host
+            </button>
           </div>
-        </InfoWindow>
+        </CustomInfoWindow>
       </Map>
     );
   }
@@ -116,9 +131,8 @@ class MapContainer extends Component {
 
 export default GoogleApiWrapper({
   apiKey: 'AIzaSyByA8HpRS2kg5JWrU-zJ0UO_k2rBq2HyDw'
-})(MapContainer);
+}) (MapContainer);
 
-// add style here to mimic 'container'
 const mapStyles = {
   width: '100%',
   height: '100vh',

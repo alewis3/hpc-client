@@ -6,6 +6,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import TextField from '@material-ui/core/TextField';
+import SendRoundedIcon from '@material-ui/icons/SendRounded';
 
 class Messages extends Component {
   constructor(props) {
@@ -16,6 +17,7 @@ class Messages extends Component {
       talkingTo: '',
       newMessage: ''
     }
+    console.log(props)
   }
 
   async componentDidMount() {
@@ -33,6 +35,32 @@ class Messages extends Component {
     }).catch(error => {
       console.log(error);
     })
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props !== prevProps) {
+      this.newConvo()
+    }
+  }
+
+  async newConvo() {
+    var self = this;
+    var apiBaseUrl = "https://hpcompost.com/api/preferences";
+
+    await axios.get(apiBaseUrl + '/profile?id=' + self.props.props.sendMessageTo).then(response => {
+      console.log(response);
+      var convo = {
+        email: response.data.user.email,
+        name: {
+          first: response.data.user.name.first,
+          last: response.data.user.name.last
+        },
+        id: self.props.props.sendMessageTo
+      }
+      // self.refreshConvo()
+    }).catch(error => {
+      console.log(error)
+    });
   }
 
   renderConvos() {
@@ -71,7 +99,7 @@ class Messages extends Component {
       return this.state.messages.map((message, i) => {
         if (message.senderId == this.props.props.id) {
           return (
-            <div key={i}>
+            <div key={i} style={{ paddingBottom: '5px' }}>
               {message.message}
             </div>
           )
@@ -85,7 +113,7 @@ class Messages extends Component {
       return this.state.messages.map((message, i) => {
         if (message.senderId !== this.props.props.id) {
           return (
-            <div key={i}>
+            <div key={i} style={{ paddingBottom: '5px' }}>
               {message.message}
             </div>
           )
@@ -94,7 +122,7 @@ class Messages extends Component {
     }
   }
 
-  async sendMessage() {
+  async sendMessage(event) {
     var self = this;
     var apiBaseUrl = "https://hpcompost.com/api";
 
@@ -106,6 +134,8 @@ class Messages extends Component {
 
     await axios.post(apiBaseUrl + '/messages', payload).then(response => {
       if (response.data.success) {
+        self.setState({ newMessage: '' })
+        
         // this doesn't work yet
         self.forceUpdate()
       }
@@ -130,15 +160,13 @@ class Messages extends Component {
           <div className="convo-text">
             <TextField
               fullWidth
-              multiline
               onChange={(event) => { this.setState({ newMessage: event.target.value }) }}
+              value={this.state.newMessage}
             />
-            <Button
-              style={{backgroundColor: 'rgb(255, 215, 64)'}}
-              onClick={() => this.sendMessage() }
-            >
-              Send
-            </Button>
+            <SendRoundedIcon
+              style={{ paddingLeft: '10px' }}
+              onClick={(event) => { this.sendMessage(event) }}
+            />
           </div>
         </div>
       </div>

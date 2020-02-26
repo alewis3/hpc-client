@@ -50,12 +50,19 @@ function logout() {
 
 export default function SimpleTabs(props) {
   const [value, setValue] = React.useState(0);
+  const [sendMessageTo, setReceivingHost] = React.useState('');
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
+  const callbackFunction = (data) => {
+    setReceivingHost(data);
+    setValue(2);
+  }
+
   if (props.location.state.accountType == 'Contributor') {
+    const newProps = {...props.location.state, sendMessageTo}
     return (
       <div>
         <ThemeProvider theme={theme}>
@@ -79,13 +86,13 @@ export default function SimpleTabs(props) {
             </Toolbar>
           </AppBar>
           <TabPanel value={value} index={0}>
-            <MapContainer props={props.location.state.id} />
+            <MapContainer props={props.location.state} callback={callbackFunction} />
           </TabPanel>
           <TabPanel value={value} index={1}>
             <ContributorPreferences props={props.location.state.id} />
           </TabPanel>
           <TabPanel value={value} index={2}>
-            <Messages props={props.location.state} />
+            <Messages props={newProps} />
           </TabPanel>
         </ThemeProvider>
       </div>
