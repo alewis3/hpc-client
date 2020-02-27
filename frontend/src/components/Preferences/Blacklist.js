@@ -24,7 +24,6 @@ class Blacklist extends Component {
 
     axios.get(apiBaseUrl + '/blockedUsers?id=' + self.props.props.props.id).then(function (response) {
       if (response.data.success) {
-        console.log(response)
         self.setState({ blockedUsers: response.data.blockedUsers })
       }
     }).catch(function (error) {

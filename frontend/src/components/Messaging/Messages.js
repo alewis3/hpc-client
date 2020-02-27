@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './Messages.scss';
 import axios from 'axios';
-import { Divider, Button } from '@material-ui/core';
+import { Divider } from '@material-ui/core';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -36,11 +36,27 @@ class Messages extends Component {
     })
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps, prevState) {
     if (this.props !== prevProps) {
       this.newConvo()
+    } else if (this.state.newMessage == '' && prevState.newMessage !== '') {
+      this.fetchMessages()
     }
   }
+
+  async fetchMessages() {
+    var self = this;
+    var apiBaseUrl = "https://hpcompost.com/api/messages";
+
+    await axios.get(apiBaseUrl + '/conversation?loggedInId=' + this.props.props.id + '&otherId=' + self.state.talkingTo).then(response => {
+      if (response.data.success) {
+        self.setState({ messages: response.data.messages })
+      }
+    }).catch(error => {
+      console.log(error);
+    })
+  }
+
 
   async newConvo() {
     var self = this;
@@ -57,7 +73,7 @@ class Messages extends Component {
           id: self.props.props.sendMessageTo
         }
         var joined = this.state.conversations.concat(convo);
-        self.setState({ conversations: joined })
+        self.setState({ conversations: joined, talkingTo: self.props.props.sendMessageTo })
         self.openConvo(self.props.props.sendMessageTo)
       }
     }).catch(error => {
@@ -87,6 +103,8 @@ class Messages extends Component {
     var self = this;
     var apiBaseUrl = "https://hpcompost.com/api/messages";
 
+    self.setState({ talkingTo: id });
+
     await axios.get(apiBaseUrl + '/conversation?loggedInId=' + this.props.props.id + '&otherId=' + id).then(response => {
       if (response.data.success) {
         self.setState({ messages: response.data.messages })
@@ -96,27 +114,23 @@ class Messages extends Component {
     })
   }
 
-  renderSenderMessages() {
-    if (this.state.messages != undefined) {
-      return this.state.messages.map((message, i) => {
-        if (message.senderId == this.props.props.id) {
-          return (
-            <div key={i} style={{ paddingBottom: '5px' }}>
-              {message.message}
-            </div>
-          )
-        }
-      })
-    }
-  }
-
-  renderReceiverMessages() {
+  renderMessages() {
     if (this.state.messages != undefined) {
       return this.state.messages.map((message, i) => {
         if (message.senderId !== this.props.props.id) {
           return (
-            <div key={i} style={{ paddingBottom: '5px' }}>
-              {message.message}
+            <div className="convo-guest" key={i}>
+              <div key={i} className="convo-their-messages">
+                {message.message}
+              </div>
+            </div>
+          )
+        } else {
+          return (
+            <div className="convo-sending" key={i}>
+              <div key={i} className="convo-your-messages">
+                {message.message}
+              </div>
             </div>
           )
         }
@@ -124,23 +138,27 @@ class Messages extends Component {
     }
   }
 
-  // doesn't work correctly
-  async sendMessage(event) {
+  async sendMessage(talkingTo) {
     var self = this;
     var apiBaseUrl = "https://hpcompost.com/api";
 
-    var payload = {
-      "senderId": self.props.props.id,
-      "receiverId": self.state.talkingTo,
-      "message": self.state.newMessage
+    if (self.props.props.sendMessageTo == undefined || self.props.props.sendMessageTo == "") {
+      var payload = {
+        "senderId": self.props.props.id,
+        "receiverId": talkingTo,
+        "message": self.state.newMessage
+      }
+    } else {
+      var payload = {
+        "senderId": self.props.props.id,
+        "receiverId": self.props.props.sendMessageTo,
+        "message": self.state.newMessage
+      }
     }
 
     await axios.post(apiBaseUrl + '/messages', payload).then(response => {
       if (response.data.success) {
         self.setState({ newMessage: '' })
-
-        // this doesn't work yet
-        self.forceUpdate()
       }
     }).catch(error => {
       console.log(error);
@@ -154,12 +172,7 @@ class Messages extends Component {
           {this.renderConvos()}
         </div>
         <div className="convo">
-          <div className="convo-guest">
-            {this.renderReceiverMessages()}
-          </div>
-          <div className="convo-sending">
-            {this.renderSenderMessages()}
-          </div>
+          {this.renderMessages()}
           <div className="convo-text">
             <TextField
               fullWidth
@@ -168,7 +181,7 @@ class Messages extends Component {
             />
             <SendRoundedIcon
               style={{ paddingLeft: '10px' }}
-              onClick={(event) => { this.sendMessage(event) }}
+              onClick={() => { this.sendMessage(this.state.talkingTo) }}
             />
           </div>
         </div>

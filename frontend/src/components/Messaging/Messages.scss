@@ -32,6 +32,25 @@
     &-text {
       display: flex;
       align-items: flex-end;
+      padding-top: 10px;
+    }
+
+    &-your-messages {
+      border-radius: 20px;
+      padding: 8px 15px;
+      margin-top: 5px;
+      margin-bottom: 5px;
+      display: inline-block;
+      background-color: #7ebad6;
+    }
+
+    &-their-messages {
+      border-radius: 20px;
+      padding: 8px 15px;
+      margin-top: 5px;
+      margin-bottom: 5px;
+      display: inline-block;
+      background-color: #eee;
     }
   }
 }
