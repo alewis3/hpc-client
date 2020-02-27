@@ -41,7 +41,7 @@
       margin-top: 5px;
       margin-bottom: 5px;
       display: inline-block;
-      background-color: #7ebad6;
+      background-color: #85c8e2;
     }
 
     &-their-messages {
@@ -51,6 +51,8 @@
       margin-bottom: 5px;
       display: inline-block;
       background-color: #eee;
+      align-items: center;
+      display: flex;
     }
   }
 }

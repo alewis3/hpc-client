@@ -7,6 +7,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import TextField from '@material-ui/core/TextField';
 import SendRoundedIcon from '@material-ui/icons/SendRounded';
+import AccountBoxRoundedIcon from '@material-ui/icons/AccountBoxRounded';
 
 class Messages extends Component {
   constructor(props) {
@@ -15,7 +16,8 @@ class Messages extends Component {
       conversations: [],
       messages: [],
       talkingTo: '',
-      newMessage: ''
+      newMessage: '',
+      infoUser: null
     }
   }
 
@@ -121,6 +123,12 @@ class Messages extends Component {
           return (
             <div className="convo-guest" key={i}>
               <div key={i} className="convo-their-messages">
+                <AccountBoxRoundedIcon
+                  style={{ paddingRight: '5px', cursor: 'pointer', color: '#7ebad6' }}
+                  onClick={() => {
+                    this.viewProfile(message.senderId)
+                  }}
+                />
                 {message.message}
               </div>
             </div>
@@ -136,6 +144,19 @@ class Messages extends Component {
         }
       })
     }
+  }
+
+  viewProfile(id) {
+    var self = this;
+    var apiBaseUrl = "https://hpcompost.com/api/preferences";
+
+    axios.get(apiBaseUrl + '/profile?id=' + id).then(response => {
+      if (response.data.success) {
+        self.setState({ infoUser: response.data.user })
+      }
+    }).catch(e => {
+      console.log(e)
+    })
   }
 
   async sendMessage(talkingTo) {
