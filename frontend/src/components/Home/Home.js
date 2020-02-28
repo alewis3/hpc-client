@@ -43,7 +43,7 @@ class Home extends Component {
           </section>
 
           <footer className="content-footer">
-            <p>Find us on:</p>
+            <h6>Find us on:</h6>
             <ul className="social">
               <li><a className="css-is-deranged" href="https://www.instagram.com">Instagram</a></li>
               <li><a className="css-is-deranged" href="https://twitter.com/home">Twitter</a></li>
