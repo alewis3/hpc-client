@@ -109,8 +109,8 @@ export default function SimpleTabs(props) {
                 centered
                 style={{ flexGrow: 3 }}
               >
-                <Tab label="Messages" {...a11yProps(1)} />
                 <Tab label="Preferences" {...a11yProps(0)} />
+                <Tab label="Messages" {...a11yProps(1)} />
               </Tabs>
               <Button
                 onClick={logout}
@@ -120,10 +120,10 @@ export default function SimpleTabs(props) {
             </Toolbar>
           </AppBar>
           <TabPanel value={value} index={0}>
-            <Messages props={props.location.state} />
+            <HostPreferences props={props.location.state} />
           </TabPanel>
           <TabPanel value={value} index={1}>
-            <HostPreferences props={props.location.state} />
+            <Messages props={props.location.state} />
           </TabPanel>
         </ThemeProvider>
       </div>
