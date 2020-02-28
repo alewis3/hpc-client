@@ -99,7 +99,11 @@ class Messages extends Component {
               button
               onClick={() => this.openConvo(this.state.conversations[i].id)}
             >
-              <ListItemText primary={this.state.conversations[i].name.first.concat(' ', this.state.conversations[i].name.last)} />
+              <ListItemText 
+                primary={this.state.conversations[i].name.first.concat(' ', this.state.conversations[i].name.last)} 
+                secondary={this.state.conversations[i].email}
+              />
+
             </ListItem>
           </List>
           <Divider />
