@@ -54,37 +54,41 @@ class MapContainer extends Component {
 
   renderHomeownerMarkers() {
     return this.state.homeowners.map((homeowner, i) => {
-      return <Marker
-        key={i}
-        title={homeowner.name.first.concat(" ", homeowner.name.last)}
-        position={{ lat: homeowner.location.lat, lng: homeowner.location.long }}
-        icon={{ url: "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png" }}
-        onClick={this.onMarkerClick}
-        options={{
-          allowedItems: homeowner.allowedItems,
-          prohibitedItems: homeowner.prohibitedItems,
-          location: homeowner.location,
-          id: homeowner._id
-        }}
-      />
+      if (homeowner.isListingOn) {
+        return <Marker
+          key={i}
+          title={homeowner.name.first.concat(" ", homeowner.name.last)}
+          position={{ lat: homeowner.location.lat, lng: homeowner.location.long }}
+          icon={{ url: "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png" }}
+          onClick={this.onMarkerClick}
+          options={{
+            allowedItems: homeowner.allowedItems,
+            prohibitedItems: homeowner.prohibitedItems,
+            location: homeowner.location,
+            id: homeowner._id
+          }}
+        />
+      }
     })
   }
 
   renderBusinessOwnerMarkers() {
     return this.state.businessOwners.map((businessOwner, i) => {
-      return <Marker
-        key={i}
-        title={businessOwner.name.first.concat(" ", businessOwner.name.last)}
-        position={{ lat: businessOwner.location.lat, lng: businessOwner.location.long }}
-        icon={{ url: "http://maps.google.com/mapfiles/ms/icons/purple-dot.png" }}
-        onClick={this.onMarkerClick}
-        options={{
-          allowedItems: businessOwner.allowedItems,
-          prohibitedItems: businessOwner.prohibitedItems,
-          location: businessOwner.location,
-          id: businessOwner._id
-        }}
-      />
+      if (businessOwner.isListingOn) {
+        return <Marker
+          key={i}
+          title={businessOwner.name.first.concat(" ", businessOwner.name.last)}
+          position={{ lat: businessOwner.location.lat, lng: businessOwner.location.long }}
+          icon={{ url: "http://maps.google.com/mapfiles/ms/icons/purple-dot.png" }}
+          onClick={this.onMarkerClick}
+          options={{
+            allowedItems: businessOwner.allowedItems,
+            prohibitedItems: businessOwner.prohibitedItems,
+            location: businessOwner.location,
+            id: businessOwner._id
+          }}
+        />
+      }
     })
   }
 
@@ -130,7 +134,7 @@ class MapContainer extends Component {
 
 export default GoogleApiWrapper({
   apiKey: 'AIzaSyByA8HpRS2kg5JWrU-zJ0UO_k2rBq2HyDw'
-}) (MapContainer);
+})(MapContainer);
 
 const mapStyles = {
   width: '95%',
