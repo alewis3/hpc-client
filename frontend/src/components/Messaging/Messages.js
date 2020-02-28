@@ -8,7 +8,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import TextField from '@material-ui/core/TextField';
 import SendRoundedIcon from '@material-ui/icons/SendRounded';
 import AccountBoxRoundedIcon from '@material-ui/icons/AccountBoxRounded';
-
 class Messages extends Component {
   constructor(props) {
     super(props);
@@ -17,7 +16,7 @@ class Messages extends Component {
       messages: [],
       talkingTo: '',
       newMessage: '',
-      infoUser: null
+      infoUser: {}
     }
   }
 
@@ -25,11 +24,19 @@ class Messages extends Component {
     var self = this;
     var apiBaseUrl = "https://hpcompost.com/api/messages";
 
-    await axios.get(apiBaseUrl + '/conversations?id=' + this.props.props.id).then(response => {
-      self.setState({ conversations: response.data.conversations, talkingTo: response.data.conversations[0].id })
-    })
+    await axios.get(apiBaseUrl + '/conversations?id=' + self.props.props.id).then(response => {
+      if (response.data.success) {
+        if (response.data.conversations.length == 0) {
+          self.setState({ conversations: response.data.conversations })
+        } else {
+          self.setState({ conversations: response.data.conversations, talkingTo: response.data.conversations[0].id })
+        }
+      }
+    }).catch(e => {
+      console.log(e);
+    });
 
-    await axios.get(apiBaseUrl + '/conversation?loggedInId=' + this.props.props.id + '&otherId=' + self.state.talkingTo).then(response => {
+    await axios.get(apiBaseUrl + '/conversation?loggedInId=' + self.props.props.id + '&otherId=' + self.state.talkingTo).then(response => {
       if (response.data.success) {
         self.setState({ messages: response.data.messages })
       }
@@ -146,11 +153,11 @@ class Messages extends Component {
     }
   }
 
-  viewProfile(id) {
+  async viewProfile(id) {
     var self = this;
     var apiBaseUrl = "https://hpcompost.com/api/preferences";
 
-    axios.get(apiBaseUrl + '/profile?id=' + id).then(response => {
+    await axios.get(apiBaseUrl + '/profile?id=' + id).then(response => {
       if (response.data.success) {
         self.setState({ infoUser: response.data.user })
       }

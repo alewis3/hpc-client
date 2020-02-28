@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
 import axios from 'axios';
 import CustomInfoWindow from './CustomInfoWindow';
-import ContributorPreferences from './Preferences/ContributorPreferences';
 
 class MapContainer extends Component {
   constructor(props) {
