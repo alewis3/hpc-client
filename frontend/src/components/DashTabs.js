@@ -10,6 +10,9 @@ import theme from '../theme';
 import HostPreferences from './Preferences/HostPreferences';
 import MapContainer from './MapContainer';
 import ContributorPreferences from './Preferences/ContributorPreferences';
+import Messages from './Messaging/Messages';
+import { Button } from '@material-ui/core';
+import Toolbar from '@material-ui/core/Toolbar';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -41,36 +44,55 @@ function a11yProps(index) {
   };
 }
 
+function logout() {
+  window.location = "hpcompost.com"
+}
+
 export default function SimpleTabs(props) {
   const [value, setValue] = React.useState(0);
+  const [sendMessageTo, setReceivingHost] = React.useState('');
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
-  if(props.location.state.accountType == 'Contributor') {
+  const callbackFunction = (data) => {
+    setReceivingHost(data);
+    setValue(1);
+  }
+
+  if (props.location.state.accountType == 'Contributor') {
+    const newProps = {...props.location.state, sendMessageTo}
     return (
       <div>
         <ThemeProvider theme={theme}>
           <AppBar position="static">
-            <Tabs value={value} 
-                  onChange={handleChange} 
-                  aria-label="simple tabs example" 
-                  centered
-            >
-              <Tab label="Map" {...a11yProps(2)} />
-              <Tab label="Preferences" {...a11yProps(1)} />
-              <Tab label="Messages" {...a11yProps(2)} />
-            </Tabs>
+            <Toolbar>
+              <Tabs value={value}
+                onChange={handleChange}
+                aria-label="simple tabs example"
+                centered
+                style={{ flexGrow: 3 }}
+              >
+                <Tab label="Map" {...a11yProps(2)} />
+                <Tab label="Messages" {...a11yProps(1)} />
+                <Tab label="Preferences" {...a11yProps(2)} />
+              </Tabs>
+              <Button
+                onClick={logout}
+                size='small'
+                style={{ backgroundColor: '#ffd740' }}
+              >Logout</Button>
+            </Toolbar>
           </AppBar>
           <TabPanel value={value} index={0}>
-            <MapContainer props={props.location.state.id}/>
+            <MapContainer props={props.location.state} callback={callbackFunction} />
           </TabPanel>
           <TabPanel value={value} index={1}>
-            <ContributorPreferences props={props.location.state} />
+            <Messages props={newProps} />
           </TabPanel>
           <TabPanel value={value} index={2}>
-            Messages
+            <ContributorPreferences props={props.location.state} />
           </TabPanel>
         </ThemeProvider>
       </div>
@@ -80,20 +102,28 @@ export default function SimpleTabs(props) {
       <div>
         <ThemeProvider theme={theme}>
           <AppBar position="static">
-            <Tabs value={value} 
-                  onChange={handleChange} 
-                  aria-label="simple tabs example" 
-                  centered
-            >
-              <Tab label="Preferences" {...a11yProps(0)} />
-              <Tab label="Messages" {...a11yProps(1)} />
-            </Tabs>
+            <Toolbar>
+              <Tabs value={value}
+                onChange={handleChange}
+                aria-label="simple tabs example"
+                centered
+                style={{ flexGrow: 3 }}
+              >
+                <Tab label="Preferences" {...a11yProps(0)} />
+                <Tab label="Messages" {...a11yProps(1)} />
+              </Tabs>
+              <Button
+                onClick={logout}
+                size='small'
+                style={{ backgroundColor: '#ffd740' }}
+              >Logout</Button>
+            </Toolbar>
           </AppBar>
           <TabPanel value={value} index={0}>
             <HostPreferences props={props.location.state} />
           </TabPanel>
           <TabPanel value={value} index={1}>
-            Messages
+            <Messages props={props.location.state} />
           </TabPanel>
         </ThemeProvider>
       </div>

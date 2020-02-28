@@ -121,7 +121,7 @@ class RegisterModal extends Component {
 
     await axios.post(apiBasedUrl + '/register', payload).then(function (response) {
       console.log(response);
-      if (response.data.registrationStatus == true) {
+      if (response.data.registrationStatus) {
         console.log("registration successful");
         self.setState({ open: false })
         alert("Registration successful! Please login.")

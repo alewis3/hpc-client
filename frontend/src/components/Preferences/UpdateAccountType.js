@@ -20,7 +20,7 @@ class UpdateAccountType extends Component {
     var apiBaseUrl = "https://hpcompost.com/api/preferences";
 
     axios.get(apiBaseUrl + '/profile?id=' + this.props.props.props.id).then(function(response) {
-      if (response.data.success == true) {
+      if (response.data.success) {
         self.setState({ accountType: response.data.user.accountType })
       }
     }).catch(function(error) {
@@ -40,7 +40,7 @@ class UpdateAccountType extends Component {
     console.log(payload);
 
     await axios.patch(apiBaseUrl + '/profile', payload).then(function(response) {
-      if (response.data.success == true) {
+      if (response.data.success) {
         alert('Account type successfully updated.')
       }
     }).catch(function(error) {
