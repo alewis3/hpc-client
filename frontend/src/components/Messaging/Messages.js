@@ -8,6 +8,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import TextField from '@material-ui/core/TextField';
 import SendRoundedIcon from '@material-ui/icons/SendRounded';
 import AccountBoxRoundedIcon from '@material-ui/icons/AccountBoxRounded';
+import { Popover } from 'reactstrap';
+
 class Messages extends Component {
   constructor(props) {
     super(props);
@@ -16,7 +18,8 @@ class Messages extends Component {
       messages: [],
       talkingTo: '',
       newMessage: '',
-      infoUser: {}
+      infoUser: null,
+      popoverOpen: false
     }
   }
 
@@ -43,6 +46,8 @@ class Messages extends Component {
     }).catch(error => {
       console.log(error);
     })
+
+    this.viewProfile(self.state.talkingTo)
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -99,11 +104,10 @@ class Messages extends Component {
               button
               onClick={() => this.openConvo(this.state.conversations[i].id)}
             >
-              <ListItemText 
-                primary={this.state.conversations[i].name.first.concat(' ', this.state.conversations[i].name.last)} 
+              <ListItemText
+                primary={this.state.conversations[i].name.first.concat(' ', this.state.conversations[i].name.last)}
                 secondary={this.state.conversations[i].email}
               />
-
             </ListItem>
           </List>
           <Divider />
@@ -130,16 +134,40 @@ class Messages extends Component {
   renderMessages() {
     if (this.state.messages != undefined) {
       return this.state.messages.map((message, i) => {
-        if (message.senderId !== this.props.props.id) {
+        if (message.senderId !== this.props.props.id && this.state.infoUser != null) {
           return (
             <div className="convo-guest" key={i}>
               <div key={i} className="convo-their-messages">
                 <AccountBoxRoundedIcon
+                  id="icon"
                   style={{ paddingRight: '5px', cursor: 'pointer', color: '#7ebad6' }}
-                  onClick={() => {
-                    this.viewProfile(message.senderId)
+                  onClick={(e) => {
+                    {
+                      this.setState({ popoverOpen: !this.state.popoverOpen })
+                      this.viewProfile(message.senderId)
+                    }
                   }}
                 />
+                <Popover placement="bottom" isOpen={this.state.popoverOpen} target="icon" toggle={this.togglePopover} >
+                  <div 
+                    style={{
+                      fontSize: '1rem',
+                      backgroundColor: "#f7f7f7",
+                      borderBottom: "1px solid #ebebeb",
+                      padding: "0.5rem 0.75rem",
+                      borderTopLeftRadius: 'calc(0.3rem - 1px)',
+                      borderTopRightRadius: 'calc(0.3rem - 1px)',
+                      border: '1px solid #ebebeb',
+                      boxShadow: "0 8px 6px -6px rgba(0, 0, 0, 0.4)"
+                    }}
+                  >
+                    <h4>Name</h4>
+                    {this.state.infoUser.name.first.concat(' ', this.state.infoUser.name.last)}
+                    <br />
+                    <h4>Address</h4>
+                    {this.state.infoUser.location.address.concat(', ', this.state.infoUser.location.city, ', ', this.state.infoUser.location.state)}
+                  </div>
+                </Popover>
                 {message.message}
               </div>
             </div>
@@ -165,8 +193,8 @@ class Messages extends Component {
       if (response.data.success) {
         self.setState({ infoUser: response.data.user })
       }
-    }).catch(e => {
-      console.log(e)
+    }).catch(error => {
+      console.log(error)
     })
   }
 

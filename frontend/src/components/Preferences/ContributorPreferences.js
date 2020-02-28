@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { ThemeProvider } from '@material-ui/core/styles';
 import theme from '../../theme';
 import Paper from '@material-ui/core/Paper';
